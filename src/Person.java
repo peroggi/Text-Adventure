@@ -3,11 +3,13 @@ public class Person {
 	String name;
 	String description;
 	String[] dialogue;
+	boolean alive;
 	
 	Person(String name, String description, String[] dialogue) {
 		this.name = name;
 		this.description = description;
 		this.dialogue = dialogue;
+		this.alive = true;
 	}
 	
 	void get() {
@@ -28,6 +30,12 @@ public class Person {
 	}
 	
 	void kill() {
-		//TODO Kill
+		this.alive = false;
+		this.desc = "That is " + this.name + ". That person is dead."; //is concatenating strings this way correct?
+		return true;
+		//other things maybe
+	}
+	boolean isAlive(){
+		return this.alive;
 	}
 }
