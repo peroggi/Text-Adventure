@@ -1,37 +1,39 @@
 
-public class Person {
+public class Person extends Thing{
 	String name;
-	String description;
+	String desc;
 	String[] dialogue;
-	boolean alive;
+	private boolean alive;
 	
-	Person(String name, String description, String[] dialogue) {
+	Person(String name, String desc, String[] dialogue) {
 		this.name = name;
-		this.description = description;
+		this.desc = desc;
 		this.dialogue = dialogue;
 		this.alive = true;
 	}
 	
-	void get() {
-		// TODO get
+	boolean get() {
+		System.out.println(this.name + " would not be very happy if you tried to put them in your inventory.");
+		return false;
 	}
 	 
-	void talk() {
-		// TODO talk
+	boolean talk() {
+		// TODO
 	}
 	
-	void use() {
-		// TODO use
-		//
+	boolean use() {
+		System.out.println("Using people is wrong.");
+		return false;
 	}
 	
-	void useOn() {
-		//TODO use on
+	boolean useOn(Person person) {
+		System.out.println( person.name + " does not want that");
+		return false;
 	}
 	
-	void kill() {
+	boolean kill() {
 		this.alive = false;
-		this.desc = "That is " + this.name + ". That person is dead."; //is concatenating strings this way correct?
+		this.desc = "That is " + this.name + ". That person is dead.";
 		return true;
 		//other things maybe
 	}

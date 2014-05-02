@@ -1,7 +1,7 @@
 
 public class Thing {
 	String name;
-	String description;
+	String desc;
 	boolean getable = false;
 	
 // why do these methods in omnithing return a boolean?	
@@ -13,7 +13,7 @@ and you can't get it, it returns false. If you can and you do pick up the thing,
 	}
 	
 	boolean look() {
-		System.out.println(this.description);
+		System.out.println(this.desc);
 		return true;
 	}
 
