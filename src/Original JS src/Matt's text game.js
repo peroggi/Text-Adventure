@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 try {
     var queststage = 0;
     var currentloc;
@@ -86,11 +87,100 @@ try {
 
     //constructor functions take arguments like name and description and spit out a new instance
     /* in another language that would look like one base class, t hen uh four classes that inherit from it and that's it
+=======
+try{
+ var queststage = 0;
+ var currentloc;
+ var specialinput = false;
+ var inv = [];
+ var invalidverb = ["You can't do that.", "Shit nigger, what are you even trying to do?", "If I let you do THAT, the game would break.", "Are you trying to cheat?"];
+ Array.prototype.pick = function(){
+  return this[Math.floor(Math.random() * this.length)];
+ };
+ Array.prototype.list = function(){
+  var str = "";
+  for(var i=0; i<this.length; i++){
+   if(this[i].links && !this[i].discovered){
+     continue;
+   }
+     str += this[i].name + ", ";
+  }
+  if(!str){
+   return "Nothing.";
+  }
+  str = str.slice(0, str.length-2);
+  str +=".";
+  return str;
+ };
+Array.prototype.contains = function(txt){
+ for(var i=0; i<this.length; i++){
+  if(txt==this[i].name.toLowerCase()){
+   return this[i];
+  }
+ }
+return false;
+};
+
+	//aliases
+	var writelist = /(^|\s)write($|\s)/gi;
+	var movelist = /((^|\s)move($|\s)|(^|\s)go\sto(%|\s))/gi;
+	var droplist = /(^|\s)drop($|\s)/gi;
+	var uselist= /(^|\s)use($|\s)/gi;
+	var invlist = /((^|\s)inv($|\s)|(^|\s)inventory($|\s))/gi;
+	var getlist=/(^|\s)get($|\s)/gi;
+	var looklist=/(^|\s)look($|\s)/gi;
+	var talklist=/(^|\s)talk($|\s)/gi;
+
+//prototypes and constructors
+
+
+
+//omnithing is a prototype object at the top of the diagram
+var OmniThing = {
+		name: "",
+		desc: "",
+		getable: false,
+	get: function(){
+		writeOut("You can't pick that up.")
+		return false;
+	}
+	look: function(){
+		writeOut(this.desc);
+		return true;
+	},
+	talk: function(){
+		writeOut("If you try to talk to that, people might think you are crazy.");
+		return false;
+	},
+	use: function(){
+		writeOut("I'm not going to let you use that for whatever sick, twisted purpose you have imagined.");
+		return false;
+		},
+	useon: function(user){
+		writeOut("Those two items don't go together");
+		return false;
+	},
+	move: function(endloc, startloc){
+		if(typeof startloc==="undefined"){
+			startloc = currentloc;
+		}
+		startloc.contain.splice(startloc.contain.indexOf(this), 1);
+		endloc.contain.push(this);
+		return true;
+	}
+};
+
+//below that are constructor functions which create an instance of an omni thing and give it the proper things needed to become a more specific object (person, location, etc)
+
+//constructor functions take arguments like name and description and spit out a new instance
+/* in another language that would look like one base class, t hen uh four classes that inherit from it and that's it
+>>>>>>> FETCH_HEAD
 
 no three
 
 person item and location */
 
+<<<<<<< HEAD
     // there is also the conversation class sort of which is off on it's own that creates conversation objects
     function Convo(npc) {
         var chat = npc.chat;
@@ -727,6 +817,193 @@ person item and location */
     initworld();
 } catch (err) {
     alert(err);
+=======
+// there is also the conversation class sort of which is off on it's own that creates conversation objects
+function Convo(npc){
+	var chat = npc.chat;
+	var say;
+	if(npc.name=="Toast"){
+		say ="";
+	}
+	else{
+		say = npc.name + " says: ";
+	}
+	var asksubject = "<br/><br/>Type something to ask " +npc.name +" about it, or type cancel to stop talking.";
+	this.start = function(){
+		writeOut(say + this.searchchat("greeting", queststage) + asksubject);
+	};
+this.searchchat = function(txt, qs, del){
+	if(typeof del==="undefined"){
+		del = false;
+	}
+	if(qs<0){
+		return false;
+	}
+	if(chat[qs]){
+		var chatstage = chat[qs];
+		if(qs==queststage){
+			for(x in chatstage.only){
+				if(x==txt){
+					if(del){chatstage.only[x] = [chat.invalid];
+						return true;
+					}
+					return chatstage.only[x];
+				}
+			}
+		}
+		for(x in chatstage.always){
+			if(x==txt){
+				if(del){chatstage.always[x] = [chat.invalid];
+					return true;
+				}
+				return chatstage.always[x];
+			}
+		}
+	}
+	qs--;
+	return this.searchchat(txt, qs, del);
+};
+
+this.talking = function(txt){
+	if(txt=="cancel"){
+		return false;
+	}
+	if(a = this.searchchat(txt, queststage)){
+		writeOut(say + a[0] + asksubject);
+			if(a.length==2){
+				if(a[1]()=="delthis"){
+					this.searchchat(txt, queststage, true);
+				}
+			}
+			return true;
+	}
+	return writeOut(say + chat.invalid + asksubject);
+};
+}
+
+function Location(name, contain, desc){
+	var l = Object.create(OmniThing);
+	l.name = name;
+	l.links = [];
+	l.contain = contain;
+	l.discovered = false;
+	l.desc = desc;
+	l.remove = function(obj){
+	if(this.contain.indexOf(obj)){
+		this.contain.splice(this.contain.indexOf(obj), 1);
+		return true;
+	}
+	else{
+		return false;
+	}
+};
+l.look = function(){
+	var txt = this.desc + " You can also see the following things: " + this.contain.list() + "<br/><br/>You know of the following links from this location: " + this.links.list();
+return writeOut(txt);
+};
+l.joinloc = function(locs){
+	for(i=0; i<locs.length;i++){
+		this.links = this.links.concat(locs[i]);
+		locs[i].links = locs[i].links.concat(this);
+	}
+	return true;
+};
+return l;
+}
+function Person(name, desc, chat){
+var p = Object.create(OmniThing);
+p.name = name;
+p.desc = desc;
+p.quest = false;
+p.chat = chat;
+p.get= function(){
+writeOut(this.name + " would not be very happy if you tried to put them in your inventory.");
+return false;
+};
+p.talk = function(){
+if(this.quest){
+var questdialogue = this.chat.quest[this.quest];
+if(questdialogue.length==2){questdialogue[1]();}
+writeOut(this.name + " says: " + questdialogue[0]);
+return true;}
+specialinput = new Convo(this);
+specialinput.start();
+return true;
+};
+p.use = function(){
+writeOut("Using people is wrong."); return false;};
+p.useon = function(user){
+writeOut(this.name + " does not want that.");};
+p.kill = function(){
+this.desc = "That is " + this.name + ". That person is dead.";
+this.talk = function(){writeOut("You cannot talk to dead people."); return false;};};
+return p;
+}
+function Item(name, desc){
+var i = Object.create(OmniThing);
+i.name = name;
+i.getable=true;
+i.held = false;
+i.desc = desc;
+i.get = function(){
+if(this.getable){
+if(this.held){writeOut("You already have that in your inventory, where else are you going to put it?"); return false;}
+writeOut("You get " + name); 
+this.held = true;
+inv.push(this);
+currentloc.contain.splice(currentloc.contain.indexOf(this), 1);
+return true;}
+else{writeOut("You can't pick that up."); return false;}
+};
+i.drop = function(){
+writeOut("You drop " + name);
+this.held = false;
+currentloc.contain.push(this);
+inv.splice(inv.indexOf(this), 1);
+return true;
+};
+return i;
+}
+//writes all output to box
+function writeOut(txt){
+document.getElementById("output").innerHTML=txt;
+return true;
+}
+
+function save(){
+var expdate = "expires=Wed, 3 Dec 2014 23:00:00 UTC; ";
+document.cookie = "420ta="+queststage+"; "+expdate+"path=/";
+}
+function load(){
+var cookies = document.cookie.split(";");
+var loadnum;
+for(i=0; i<cookies.length; i++){
+if(cookies[i].match(/420ta=/)){loadnum = cookies[i].replace(/420ta=/, ""); break;}}
+switch(parseInt(loadnum)){
+case 1:
+initworld();
+discover([redditAREA, memesAREA, catsAREA, nsasubredditAREA, todayilearnedAREA]);
+howlieNPC.move(streamAREA, nsasubredditAREA);
+oldmanNPC.move(testlandAREA, memesAREA);
+oldmanNPC.quest = false;
+queststage = 1;
+redditdeath();
+writeOut("Save file loaded");
+catsAREA.remove(catpictureITEM);
+nsasubredditAREA.remove(lighterITEM);
+inv.push(lighterITEM);
+break;
+case 2:
+initworld();
+discover([shesaidAREA, shesaidarchiveAREA, reichAREA]);
+kojNPC.move(streamAREA, shesaidarchiveAREA);
+shesaiddeath();
+queststage = 2;
+writeOut("Save file loaded");
+reichAREA.remove(naziflagITEM);
+break;
+default: writeOut("There is no file to load from. This game only saves at certain checkpoints."); break;
+>>>>>>> FETCH_HEAD
 }
 
 var help = "This is a text adventure game. You interact with things by typing a verb and then the thing you wish to interact with. Some of the important verbs are: look, get, drop, use, inventory, talk, and move. This isn't an inclusive list though, part of the fun of text adventures is experimenting! <br/>Some other important things: typing just \"look\" will have you look at the area you're currently in, and you can also use items on other items/people.<br/>The game will save at certain checkpoints. To load your game, type load. To delete your save type delete.<br/><br/>Good luck!";
