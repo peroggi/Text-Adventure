@@ -1,39 +1,45 @@
 try{
-var queststage = 0;
-var currentloc;
-var specialinput = false;
-var inv = [];
-var invalidverb = ["You can't do that.", "Shit nigger, what are you even trying to do?",
-"If I let you do THAT, the game would break.", "Are you trying to cheat?"];
-Array.prototype.pick = function(){
-return this[Math.floor(Math.random() * this.length)];
-};
-Array.prototype.list = function(){
-var str = "";
-for(var i=0; i<this.length; i++){
-if(this[i].links && !this[i].discovered){continue;}
-str += this[i].name + ", ";}
-if(!str){return "Nothing.";}
-str = str.slice(0, str.length-2);
-str +=".";
-return str;
-};
+ var queststage = 0;
+ var currentloc;
+ var specialinput = false;
+ var inv = [];
+ var invalidverb = ["You can't do that.", "Shit nigger, what are you even trying to do?", "If I let you do THAT, the game would break.", "Are you trying to cheat?"];
+ Array.prototype.pick = function(){
+  return this[Math.floor(Math.random() * this.length)];
+ };
+ Array.prototype.list = function(){
+  var str = "";
+  for(var i=0; i<this.length; i++){
+   if(this[i].links && !this[i].discovered){
+     continue;
+   }
+     str += this[i].name + ", ";
+  }
+  if(!str){
+   return "Nothing.";
+  }
+  str = str.slice(0, str.length-2);
+  str +=".";
+  return str;
+ };
 Array.prototype.contains = function(txt){
-for(var i=0; i<this.length; i++){
-if(txt==this[i].name.toLowerCase()){return this[i];}
-}
+ for(var i=0; i<this.length; i++){
+  if(txt==this[i].name.toLowerCase()){
+   return this[i];
+  }
+ }
 return false;
 };
 
-//aliases
-var writelist = /(^|\s)write($|\s)/gi;
-var movelist = /((^|\s)move($|\s)|(^|\s)go\sto(%|\s))/gi;
-var droplist = /(^|\s)drop($|\s)/gi;
-var uselist= /(^|\s)use($|\s)/gi;
-var invlist = /((^|\s)inv($|\s)|(^|\s)inventory($|\s))/gi;
-var getlist=/(^|\s)get($|\s)/gi;
-var looklist=/(^|\s)look($|\s)/gi;
-var talklist=/(^|\s)talk($|\s)/gi;
+	//aliases
+	var writelist = /(^|\s)write($|\s)/gi;
+	var movelist = /((^|\s)move($|\s)|(^|\s)go\sto(%|\s))/gi;
+	var droplist = /(^|\s)drop($|\s)/gi;
+	var uselist= /(^|\s)use($|\s)/gi;
+	var invlist = /((^|\s)inv($|\s)|(^|\s)inventory($|\s))/gi;
+	var getlist=/(^|\s)get($|\s)/gi;
+	var looklist=/(^|\s)look($|\s)/gi;
+	var talklist=/(^|\s)talk($|\s)/gi;
 
 //prototypes and constructors
 
@@ -41,21 +47,37 @@ var talklist=/(^|\s)talk($|\s)/gi;
 
 //omnithing is a prototype object at the top of the diagram
 var OmniThing = {
-name: "",
-desc: "",
-getable: false,
-get: function(){writeOut("You can't pick that up."); return false;},
-look: function(){writeOut(this.desc); return true;},
-talk: function(){writeOut("If you try to talk to that, people might think you are crazy."); return false;},
-use: function(){
-writeOut("I'm not going to let you use that for whatever sick, twisted purpose you have imagined."); return false;},
-useon: function(user){
-writeOut("Those two items don't go together"); return false;},
-move: function(endloc, startloc){
-if(typeof startloc==="undefined"){startloc = currentloc;}
-startloc.contain.splice(startloc.contain.indexOf(this), 1);
-endloc.contain.push(this);
-return true;}
+		name: "",
+		desc: "",
+		getable: false,
+	get: function(){
+		writeOut("You can't pick that up.")
+		return false;
+	}
+	look: function(){
+		writeOut(this.desc);
+		return true;
+	},
+	talk: function(){
+		writeOut("If you try to talk to that, people might think you are crazy.");
+		return false;
+	},
+	use: function(){
+		writeOut("I'm not going to let you use that for whatever sick, twisted purpose you have imagined.");
+		return false;
+		},
+	useon: function(user){
+		writeOut("Those two items don't go together");
+		return false;
+	},
+	move: function(endloc, startloc){
+		if(typeof startloc==="undefined"){
+			startloc = currentloc;
+		}
+		startloc.contain.splice(startloc.contain.indexOf(this), 1);
+		endloc.contain.push(this);
+		return true;
+	}
 };
 
 //below that are constructor functions which create an instance of an omni thing and give it the proper things needed to become a more specific object (person, location, etc)
@@ -69,64 +91,93 @@ person item and location */
 
 // there is also the conversation class sort of which is off on it's own that creates conversation objects
 function Convo(npc){
-var chat = npc.chat;
-var say;
-if(npc.name=="Toast"){say ="";}
-else{say = npc.name + " says: ";}
-var asksubject = "<br/><br/>Type something to ask " +npc.name +" about it, or type cancel to stop talking.";
-this.start = function(){
-writeOut(say + this.searchchat("greeting", queststage) + asksubject);
-};
+	var chat = npc.chat;
+	var say;
+	if(npc.name=="Toast"){
+		say ="";
+	}
+	else{
+		say = npc.name + " says: ";
+	}
+	var asksubject = "<br/><br/>Type something to ask " +npc.name +" about it, or type cancel to stop talking.";
+	this.start = function(){
+		writeOut(say + this.searchchat("greeting", queststage) + asksubject);
+	};
 this.searchchat = function(txt, qs, del){
-if(typeof del==="undefined"){del = false;}
-if(qs<0){return false;}
-if(chat[qs]){
-var chatstage = chat[qs];
-if(qs==queststage){
-for(x in chatstage.only){
-if(x==txt){
-if(del){chatstage.only[x] = [chat.invalid]; return true;}
-return chatstage.only[x];}}}
-for(x in chatstage.always){
-if(x==txt){
-if(del){chatstage.always[x] = [chat.invalid]; return true;}
-return chatstage.always[x];}}
-}
-qs--;
-return this.searchchat(txt, qs, del);
+	if(typeof del==="undefined"){
+		del = false;
+	}
+	if(qs<0){
+		return false;
+	}
+	if(chat[qs]){
+		var chatstage = chat[qs];
+		if(qs==queststage){
+			for(x in chatstage.only){
+				if(x==txt){
+					if(del){chatstage.only[x] = [chat.invalid];
+						return true;
+					}
+					return chatstage.only[x];
+				}
+			}
+		}
+		for(x in chatstage.always){
+			if(x==txt){
+				if(del){chatstage.always[x] = [chat.invalid];
+					return true;
+				}
+				return chatstage.always[x];
+			}
+		}
+	}
+	qs--;
+	return this.searchchat(txt, qs, del);
 };
+
 this.talking = function(txt){
-if(txt=="cancel"){return false;}
-if(a = this.searchchat(txt, queststage)){
-writeOut(say + a[0] + asksubject);
-if(a.length==2){
-if(a[1]()=="delthis"){this.searchchat(txt, queststage, true);}}
-return true;
-}
-return writeOut(say + chat.invalid + asksubject);
+	if(txt=="cancel"){
+		return false;
+	}
+	if(a = this.searchchat(txt, queststage)){
+		writeOut(say + a[0] + asksubject);
+			if(a.length==2){
+				if(a[1]()=="delthis"){
+					this.searchchat(txt, queststage, true);
+				}
+			}
+			return true;
+	}
+	return writeOut(say + chat.invalid + asksubject);
 };
 }
+
 function Location(name, contain, desc){
-var l = Object.create(OmniThing);
-l.name = name;
-l.links = [];
-l.contain = contain;
-l.discovered = false;
-l.desc = desc;
-l.remove = function(obj){
-if(this.contain.indexOf(obj)){
-this.contain.splice(this.contain.indexOf(obj), 1); return true;}
-else{return false;}};
+	var l = Object.create(OmniThing);
+	l.name = name;
+	l.links = [];
+	l.contain = contain;
+	l.discovered = false;
+	l.desc = desc;
+	l.remove = function(obj){
+	if(this.contain.indexOf(obj)){
+		this.contain.splice(this.contain.indexOf(obj), 1);
+		return true;
+	}
+	else{
+		return false;
+	}
+};
 l.look = function(){
-var txt = this.desc + " You can also see the following things: " + this.contain.list() + "<br/><br/>You know of the following links from this location: " + this.links.list();
+	var txt = this.desc + " You can also see the following things: " + this.contain.list() + "<br/><br/>You know of the following links from this location: " + this.links.list();
 return writeOut(txt);
 };
 l.joinloc = function(locs){
-for(i=0; i<locs.length;i++){
-this.links = this.links.concat(locs[i]);
-locs[i].links = locs[i].links.concat(this);
-}
-return true;
+	for(i=0; i<locs.length;i++){
+		this.links = this.links.concat(locs[i]);
+		locs[i].links = locs[i].links.concat(this);
+	}
+	return true;
 };
 return l;
 }
