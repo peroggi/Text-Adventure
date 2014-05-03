@@ -1,8 +1,7 @@
-/.DS_Store
 /Input.class
+/Item.class
+/Location.class
 /Original JS src
 /Person.class
-/Thing.class
-/Location.class
-/Item.class
 /TextAdventure.class
+/Thing.class
