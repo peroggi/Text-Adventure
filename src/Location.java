@@ -30,7 +30,7 @@ public class Location extends Thing{
 	return false;
 	}
 	
-	boolean inContents(String txt){
+	boolean inContents(String txt){ 
 		for(Thing t: contents){
 			if(t.getName() == txt){
 				return true;

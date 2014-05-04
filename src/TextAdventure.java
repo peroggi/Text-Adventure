@@ -10,11 +10,14 @@ public class TextAdventure {
 		// TODO 
 	
 	}
+	
+	void initWorld() {
+		Player player = new Player();
+		//TODO finish
+	}
+	
 	public static void main(String[] args) {
-		Inventory inv = new Inventory();
-		inv.showInv();
-		Item testItem = new Item("test item", "this is a test item");
-		inv.showInv();
+		
 	}
 
 }
