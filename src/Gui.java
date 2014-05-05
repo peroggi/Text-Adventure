@@ -1,18 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.concurrent.ExecutionException;
+
 import javax.swing.*;
 
 public class Gui extends JPanel implements ActionListener {
-	protected TextField input;
-	protected TextArea output;
+	private TextField input;
+	private TextArea output;
+	String inputText;
 	
 	Gui(){
 		this.setLayout(new BorderLayout());
 		
 		input = new TextField(20);
-		/*from what I understand this makes it so that when enter is pressed on the textfield, it calls this'
-		 * actionPerformed() method. It basically makes this (meaning a gui object) listen for actions on the textfield
-		 */
 		input.addActionListener(this);
 		
 		output = new TextArea(5,50);
@@ -25,10 +25,10 @@ public class Gui extends JPanel implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent evt){
-		String text = input.getText(); //gets the text that was in the textfield when enter was pressed
+		inputText = input.getText(); //gets the text that was in the textfield when enter was pressed
 		input.setText(""); //erases the text that was in the textfield
-		output.setText("I can see that you've typed something, but I don't know what to do with that text!");
-		//do stuff with text		
+		InputWorker inputWorker = new InputWorker(); //create thread
+		inputWorker.execute(); //calls doInBackground() on new thread		
 	}
 	
 	static void makeGui(){
@@ -37,5 +37,26 @@ public class Gui extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	private class InputWorker extends SwingWorker<String, Void>{
+		String textToWrite;
+		
+		public String doInBackground(){ //everything in here is done on a new thread
+			String outputText = TextAdventure.inputter.checkInput(inputText);
+			System.out.println(Thread.currentThread().getName());
+			return outputText;
+		}
+		
+		public void done(){ //called on the event thread once the worker thread is finished, meaning gui things happen here
+			try{ //I think try statements make a new scope, which is annoying. Or am I just doing things wrong?
+				//if I declare textToWrite in the try statement no one else knows it exists
+			textToWrite = get(); //gets the return value of doInBackground()
+			}
+			catch(InterruptedException | ExecutionException ignore){}
+			System.out.println(Thread.currentThread().getName());
+			output.setText(this.textToWrite); //thread safe since gui is being manipulated by event thread only
+			//TODO handle errors properly, handle possibility of player trying to submit input while previous input still processing
+		}
 	}
 }

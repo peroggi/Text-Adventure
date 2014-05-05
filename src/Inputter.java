@@ -25,12 +25,14 @@ public class Inputter {
 	}
 	
 	// method to parse input, call corresponding class method in player, set output text. works by GUI calling checkInput then writeOut to return output
-	public void checkInput(String s) {
+	public String checkInput(String s) {
 		this.setInputText(s);
 		
-		if (inputText.equalsIgnoreCase("look")) { // just testing with look for now, one word input
-			this.setOutputText(player.look());
-		}	
+		//if (inputText.equalsIgnoreCase("look")) { // just testing with look for now, one word input
+		//	this.setOutputText(player.look());
+		//}	
+		//commented out for input/thread test
+		return "hurray for threads!";
 		// TODO
 	}
 
