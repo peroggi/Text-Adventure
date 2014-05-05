@@ -35,8 +35,8 @@ public class Player {
 		return "Dropped " + toRemove.getName();
 	}
 	
-	String look() {
-		return currentLoc.look(); // call to Location's look method? or should we just have one look method in player?
+	public String look() {
+		return currentLoc.look(); 
 	}
 	
 	void talk(Person p) {

@@ -1,18 +1,32 @@
 import java.util.Scanner;
 public class Input {
 	
+	private String text = "";
+	
+	
+	public String getText() {
+		return text;
+	}
+
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+
+	/* old method stub for using scanner as input and System.out as output
+	 
 	public static void getInput(String prompt) {
-		Scanner kb = new Scanner(System.in);
-		System.out.println(prompt);
-		String input = kb.nextLine();
+		Player p = new Player();
 		
 		String[] inputs = input.split(" ");
 		
 		for (String i : inputs) {
 			//ifs go here. break out of loop after each
 			if (inputs[0].equalsIgnoreCase("look")) {
+				p.look();
 				// TODO look
-				
+			
 			}
 			if (inputs[0].equalsIgnoreCase("get")) {
 				// TODO get
@@ -40,7 +54,7 @@ public class Input {
             
 			System.out.println(i);
 		}
-
-	}
+	* 
+	 */
 
 }
