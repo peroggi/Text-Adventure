@@ -1,7 +1,6 @@
 
 public class Item extends Thing{
-	private String name;
-	private String desc;
+	
 	private boolean getable = true;
 	
 	Item(String n, String d) {
@@ -15,13 +14,6 @@ public class Item extends Thing{
 		getable = g;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
-	public String getDesc() {
-		return desc;
-	}
 	public boolean isGetable() {
 		return getable;
 	}

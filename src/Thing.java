@@ -1,31 +1,39 @@
 
 public class Thing {
-	String name;
-	String desc;
-	boolean getable = false;
-	boolean talkable = false;
+	protected String name;
+	protected String desc;
+	protected boolean getable = false;
+	protected boolean talkable = false;
 	
-	String getName(){
+	public String getName(){
 		return this.name;
 	}
 	
-	String getDesc() {
+	public void setName(String s) {
+		name = s;
+	}
+	
+	public String getDesc() {
 		return this.desc;
 	}
 	
-	boolean isGetable() {
+	public void setDesc(String s) {
+		desc = s;
+	}
+	
+	public boolean isGetable() {
 		return getable;
 	}
 	
-	void talk () {
+	public void talk () {
 		// so with talkable, would talk be part of thing or part of player?
 	}
 	
-	boolean isTalkable() {
+	public boolean isTalkable() {
 		return talkable;
 	}
 	
-	boolean use() {
+	public boolean use() {
 		return false;
 	}
 	

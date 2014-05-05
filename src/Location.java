@@ -7,8 +7,8 @@ public class Location extends Thing{
 	private boolean discovered = false;
 	
 	Location(String name, String desc, Thing[] contents){
-		this.name = name;
-		this.desc = desc;
+		this.setName(name);
+		this.setDesc(desc);
 		for(Thing o : contents){
 			this.contents.add(o);
 		}
@@ -30,9 +30,9 @@ public class Location extends Thing{
 	return false;
 	}
 	
-	boolean inContents(String txt){ 
-		for(Thing t: contents){
-			if(t.getName() == txt){
+	boolean inContents(Thing t){ 
+		for(Thing i: contents){
+			if(i.equals(t)){
 				return true;
 			}
 		}
@@ -48,7 +48,7 @@ public class Location extends Thing{
 		}
 	
 	String look() {
-		String txt = this.desc + " You can also see the following things: ";
+		String txt = this.getDesc() + " You can also see the following things: ";
 		
 		for (Object i : contents) {
 			txt = txt + " " + i;

@@ -1,7 +1,5 @@
 
 public class Person extends Thing{
-	String name;
-	String desc;
 	String[] dialogue;
 	private boolean alive;
 	
@@ -9,7 +7,7 @@ public class Person extends Thing{
 		this.name = name;
 		this.desc = desc;
 		this.dialogue = dialogue;
-		this.alive = true;
+		alive = true;
 	}
 	
 	boolean get() {
