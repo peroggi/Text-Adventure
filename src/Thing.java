@@ -26,7 +26,7 @@ public class Thing {
 	}
 	
 	public void talk () {
-		// so with talkable, would talk be part of thing or part of player?
+		
 	}
 	
 	public boolean isTalkable() {

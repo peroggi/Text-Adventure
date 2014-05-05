@@ -14,50 +14,6 @@ public class Location extends Thing{
 		}
 	}
 	
-	void remove(Thing o) {
-		this.contents.remove(o);
-	}
-	void add(Thing o){
-		this.contents.add(o);
-		}	
-		
-	boolean isLinked(String txt){ //will be called when player attempts to move to a location
-		for(Location l : this.links){
-			if(l.getName() == txt){
-				return true;
-			}
-		}
-	return false;
-	}
-	
-	boolean inContents(String n){ 
-		for(Thing i: contents){
-			if(i.getName().equalsIgnoreCase(n)){
-				return true;
-			}
-			
-		}
-		return false;
-	}
-
-	
-	Thing getThing(String s) {
-		for (Thing i: contents) {
-			if (i.getName().equalsIgnoreCase(s)) {
-			return i;
-			} 
-		}
-		return null;
-	}
-	
-	void discover(){
-		this.discovered = true;
-		}
-		
-	void linkLocation(Location loc){
-		this.links.add(loc);
-		}
-	
 	String look() {
 		String txt = this.getDesc() + " You can also see the following things: ";
 		String itemNames = "";
@@ -74,6 +30,53 @@ public class Location extends Thing{
 			return txt + " " + "Nothing";
 		}
 		
+	}
+	
+	void remove(Thing o) {	// removes a thing from the location
+		this.contents.remove(o);
+	}
+	void add(Thing o){	// adds a thing to the location
+		this.contents.add(o);
+		}	
+		
+	
+	boolean isInContents(String n){ //checks if something named s exists  in contents
+		for(Thing i: contents){
+			if(i.getName().equalsIgnoreCase(n)){
+				return true;
+			}
+			
+		}
+		return false;
+	}
+
+	
+	Thing findInContents(String s) { // returns the object named s from contents
+		for (Thing i: contents) {
+			if (i.getName().equalsIgnoreCase(s)) {
+			return i;
+			} 
+		}
+		
+		System.out.println("null obj returned"); // for testing
+		return null;
+	}
+	
+	void discover(){
+		this.discovered = true;
+		}
+		
+	void linkLocation(Location loc){
+		this.links.add(loc);
+		}
+	
+	boolean isLinked(Location l){ //will be called when player attempts to move to a location
+		for(Location loc : this.links){
+			if(loc.equals(l)){
+				return true;
+			}
+		}
+	return false;
 	}
 	
 	void joinLoc(Location[] locs) {

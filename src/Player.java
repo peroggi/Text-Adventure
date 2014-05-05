@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Player {
 	
 	World world = new World(); // world player exists in
-	Location currentLoc = World.locs[0]; //set to first location
+	Location currentLoc = World.locs.get(0); //set to first location
 	ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	// inventory methods 
@@ -38,6 +38,27 @@ public class Player {
 		return "Dropped " + toRemove.getName();
 	}
 	
+	boolean isInInventory(String s){ // looks for a thing named s in inventory
+		for(Thing i: inventory){
+			if(i.getName().equalsIgnoreCase(s)){
+				return true;
+			}
+			
+		}
+		return false;
+	}
+
+	
+	Thing findInInventory(String s) { // returns object named s
+		for (Thing i: inventory) {
+			if (i.getName().equalsIgnoreCase(s)) {
+			return i;
+			} 
+		}
+		System.out.println("null obj returned"); // testing
+		return null;
+	}
+	
 	public String look() {
 		return currentLoc.look(); 
 	}
@@ -55,6 +76,9 @@ public class Player {
 	}
 	
 	String move(Location l) {
+		currentLoc = l;
+		return "You are now at " + currentLoc.getName();
+		
 		// TODO
 	}
 	
