@@ -6,14 +6,16 @@ public class Player {
 	ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	// inventory methods 
-	void showInv() {
+	String showInv() {
 		if (inventory.isEmpty()) {
-			System.out.println("Nothing in inventory");
+			return "Nothing in inventory";
 		}
 		else {
+			String invList = "";
 			for (int i = 0; i< inventory.size(); i++) {
-				System.out.print(inventory.get(i) + ", ");
+				invList += inventory.get(i) + ", ";
 			}
+			return invList;
 		}
 	}
 	
