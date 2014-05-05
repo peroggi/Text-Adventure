@@ -6,11 +6,6 @@ public class Inputter {
 	Player player;
 	private String inputText;
 	
-	// not needeed anymore?
-	// private String outputText;
-	
-	
-	
 	Inputter(Player p) {
 		player = p;
 	}
@@ -22,16 +17,6 @@ public class Inputter {
 	public void setInputText(String inputText) {
 		this.inputText = inputText;
 	}
-	
-	/*
-	public String getOutputText() {
-		return outputText;
-	}
-
-	public void setOutputText(String outputText) {
-		this.outputText = outputText;
-	}
-	*/
 	
 	// method to parse input, call corresponding class method in player, return output string
 	public String checkInput(String s) {
@@ -108,31 +93,32 @@ public class Inputter {
 				
 				return "You can't go somewhere that doesn't exist.";
 			}
-			
-			else {
-				System.out.println("loc exists");
-				toMoveTo =  player.world.getLocation(s);
-				
-				if (!player.currentLoc.isLinked(toMoveTo)) { // locs aren't linked
-					System.out.println("locs aren't linked");
-					return "You can't go there";
-				}
-				
-				else { // move if okay
-					System.out.println("loc " + player.currentLoc.getName() + " is linked to " + toMoveTo.getName());
-					
-					System.out.println("Moving to " + toMoveTo.getName());
-					return player.move(toMoveTo); // move to new loc
-				}
+			else { // move if okay
+				System.out.println("loc " + player.world.getLocation(s) + "exists");
+				toMoveTo =  player.world.getLocation(s); // TODO FIX
+				System.out.println("moving from " + player.currentLoc.getName() + " to " + toMoveTo.getName());
+				return player.move(toMoveTo); // move to new loc
 			}
 			
-		}
+			
+			
+			/* else {
+				
+				
+				//if (!(player.currentLoc.isLinked(toMoveTo))) { // locs aren't linked
+				//	System.out.println("locs aren't linked");
+				//	return "You can't go there";
+				//}
+			*/
+
+		
+		
 		
 		//KILL
 		
 		// TODO more actions
 		
-		
+		}
 		
 		return "test, you're seeing this because the output string couldn't be found. hurray for threads";
 	}

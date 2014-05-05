@@ -13,12 +13,13 @@ public class World {
 		
 		// extra testing location
 		Location test = new Location("Test", "This is a strange looking place with nothing in it. Some wannabe programmer must have made it.", new Thing[]{});
-		streams.joinLoc(new Location[]{streams, test}); // TODO I think links are broken
+		streams.joinLoc(new Location[]{test}); // TODO I think links are broken
 		
 		// store locations in locs
 		locs.add(streams);
 		locs.add(test);
 		
+		streams.testPrintLinks(); // testing
 		
 		//TODO finish rest of world
 	}

@@ -12,6 +12,11 @@ public class Location extends Thing{
 		for(Thing o : contents){
 			this.contents.add(o);
 		}
+		System.out.println(name + " location created."); // for testing
+	}
+	
+	public String toString() {
+		return name;
 	}
 	
 	String look() {
@@ -38,8 +43,6 @@ public class Location extends Thing{
 	void add(Thing o){	// adds a thing to the location
 		this.contents.add(o);
 		}	
-		
-	
 	boolean isInContents(String n){ //checks if something named s exists  in contents
 		for(Thing i: contents){
 			if(i.getName().equalsIgnoreCase(n)){
@@ -49,8 +52,6 @@ public class Location extends Thing{
 		}
 		return false;
 	}
-
-	
 	Thing findInContents(String s) { // returns the object named s from contents
 		for (Thing i: contents) {
 			if (i.getName().equalsIgnoreCase(s)) {
@@ -66,17 +67,23 @@ public class Location extends Thing{
 		this.discovered = true;
 		}
 		
-	void linkLocation(Location loc){
-		this.links.add(loc);
-		}
+
 	
 	boolean isLinked(Location l){ //will be called when player attempts to move to a location
-		for(Location loc : this.links){
+		for(Location loc : links){
 			if(loc.equals(l)){
 				return true;
 			}
 		}
 	return false;
+	}
+	
+	void testPrintLinks() {
+		System.out.print(this.getName() + " is linked to: ");
+		for (Location l : links) {
+			System.out.print(l.getName() + " " + isLinked(l) + " ");
+		}
+		System.out.println();
 	}
 	
 	void joinLoc(Location[] locs) {
@@ -85,5 +92,10 @@ public class Location extends Thing{
 			l.linkLocation(this);
 		}
 	}
-		
+	
+	void linkLocation(Location loc){
+		this.links.add(loc);
+		}
+	
+
 }
