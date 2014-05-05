@@ -30,15 +30,26 @@ public class Location extends Thing{
 	return false;
 	}
 	
-	boolean inContents(Thing t){ 
+	boolean inContents(String n){ 
 		for(Thing i: contents){
-			if(i.equals(t)){
+			if(i.getName().equalsIgnoreCase(n)){
 				return true;
 			}
+			
 		}
-	return false;
+		return false;
 	}
-		
+
+	
+	Thing getThing(String s) {
+		for (Thing i: contents) {
+			if (i.getName().equalsIgnoreCase(s)) {
+			return i;
+			} 
+		}
+		return null;
+	}
+	
 	void discover(){
 		this.discovered = true;
 		}
@@ -49,11 +60,20 @@ public class Location extends Thing{
 	
 	String look() {
 		String txt = this.getDesc() + " You can also see the following things: ";
+		String itemNames = "";
 		
-		for (Object i : contents) {
-			txt = txt + " " + i;
+		if (contents.size() != 0) {
+			for (int i = 0; i<contents.size(); i++) {
+				Thing item = contents.get(i);
+				itemNames += item.getName() + " ";
+	
+			}
+			return txt + " " + itemNames;
 		}
-		return txt;
+		else {
+			return txt + " " + "Nothing";
+		}
+		
 	}
 	
 	void joinLoc(Location[] locs) {

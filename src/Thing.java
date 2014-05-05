@@ -46,4 +46,8 @@ public class Thing {
 		startLoc.remove(this);
 		endLoc.add(this);
 	}
+	
+	public String toString() {
+		return this.name;
+	}
 }

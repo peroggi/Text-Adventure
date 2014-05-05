@@ -37,6 +37,7 @@ public class Gui extends JPanel implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 	
 	private class InputWorker extends SwingWorker<String, Void>{
