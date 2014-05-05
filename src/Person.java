@@ -14,12 +14,15 @@ public class Person extends Thing{
 		System.out.println(this.name + " would not be very happy if you tried to put them in your inventory.");
 		return false;
 	}
-	 
+	
+	 /*
 	boolean talk() {
 		// TODO
 	}
 	
-	boolean use() {
+	*/
+	
+	public boolean use() {
 		System.out.println("Using people is wrong.");
 		return false;
 	}

@@ -21,6 +21,7 @@ public class TextAdventure {
 	public static void main(String[] args) {
 		initWorld();
 		//makes gui in thread safe way using computer magic
+		//multithreading scary!
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				Gui.makeGui();

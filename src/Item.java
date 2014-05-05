@@ -14,10 +14,8 @@ public class Item extends Thing{
 		getable = g;
 	}
 	
-<<<<<<< HEAD
 	public boolean isGetable() {
 		return getable;
 	}
-=======
->>>>>>> FETCH_HEAD
+	
 }
