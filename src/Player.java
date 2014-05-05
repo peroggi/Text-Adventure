@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class Player {
 	
-	Location currentLoc = null; //set to first location
+	World world = new World(); // world player exists in
+	Location currentLoc = World.locs.get(0); //set to first location
 	ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	// inventory methods 
@@ -11,9 +12,9 @@ public class Player {
 			return "Nothing in inventory";
 		}
 		else {
-			String invList = "";
+			String invList = "You have: ";
 			for (int i = 0; i< inventory.size(); i++) {
-				invList += inventory.get(i) + ", ";
+				invList += inventory.get(i) + " ";
 			}
 			return invList;
 		}
@@ -21,7 +22,7 @@ public class Player {
 	
 	
 	String get(Item toAdd) {
-		if (toAdd.isGetable() && currentLoc.inContents(toAdd)) {
+		if (toAdd.isGetable()) {
 			inventory.add(toAdd);
 			currentLoc.remove(toAdd);
 			return "Picked up " + toAdd.getName();
@@ -35,6 +36,27 @@ public class Player {
 		inventory.remove(toRemove);
 		currentLoc.add(toRemove);
 		return "Dropped " + toRemove.getName();
+	}
+	
+	boolean isInInventory(String s){ // looks for a thing named s in inventory
+		for(Thing i: inventory){
+			if(i.getName().equalsIgnoreCase(s)){
+				return true;
+			}
+			
+		}
+		return false;
+	}
+
+	
+	Thing findInInventory(String s) { // returns object named s
+		for (Thing i: inventory) {
+			if (i.getName().equalsIgnoreCase(s)) {
+			return i;
+			} 
+		}
+		System.out.println("null obj returned"); // testing
+		return null;
 	}
 	
 	public String look() {
@@ -54,6 +76,9 @@ public class Player {
 	}
 	
 	String move(Location l) {
+		currentLoc = l;
+		return "You are now at " + currentLoc.getName();
+		
 		// TODO
 	}
 	

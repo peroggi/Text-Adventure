@@ -1,1 +1,6 @@
 /bin
+*.class
+
+*.class
+
+bin/TextAdventure.class

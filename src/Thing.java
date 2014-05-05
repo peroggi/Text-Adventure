@@ -26,7 +26,7 @@ public class Thing {
 	}
 	
 	public void talk () {
-		// so with talkable, would talk be part of thing or part of player?
+		
 	}
 	
 	public boolean isTalkable() {
@@ -45,5 +45,9 @@ public class Thing {
 	void move(Location startLoc, Location endLoc) {
 		startLoc.remove(this);
 		endLoc.add(this);
+	}
+	
+	public String toString() {
+		return this.name;
 	}
 }

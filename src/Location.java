@@ -14,31 +14,54 @@ public class Location extends Thing{
 		}
 	}
 	
-	void remove(Thing o) {
+	String look() {
+		String txt = this.getDesc() + " You can also see the following things: ";
+		String itemNames = "";
+		
+		if (contents.size() != 0) {
+			for (int i = 0; i<contents.size(); i++) {
+				Thing item = contents.get(i);
+				itemNames += item.getName() + " ";
+	
+			}
+			return txt + " " + itemNames;
+		}
+		else {
+			return txt + " " + "Nothing";
+		}
+		
+	}
+	
+	void remove(Thing o) {	// removes a thing from the location
 		this.contents.remove(o);
 	}
-	void add(Thing o){
+	void add(Thing o){	// adds a thing to the location
 		this.contents.add(o);
 		}	
 		
-	boolean isLinked(String txt){ //will be called when player attempts to move to a location
-		for(Location l : this.links){
-			if(l.getName() == txt){
+	
+	boolean isInContents(String n){ //checks if something named s exists  in contents
+		for(Thing i: contents){
+			if(i.getName().equalsIgnoreCase(n)){
 				return true;
 			}
+			
 		}
-	return false;
+		return false;
+	}
+
+	
+	Thing findInContents(String s) { // returns the object named s from contents
+		for (Thing i: contents) {
+			if (i.getName().equalsIgnoreCase(s)) {
+			return i;
+			} 
+		}
+		
+		System.out.println("null obj returned"); // for testing
+		return null;
 	}
 	
-	boolean inContents(Thing t){ 
-		for(Thing i: contents){
-			if(i.equals(t)){
-				return true;
-			}
-		}
-	return false;
-	}
-		
 	void discover(){
 		this.discovered = true;
 		}
@@ -47,13 +70,13 @@ public class Location extends Thing{
 		this.links.add(loc);
 		}
 	
-	String look() {
-		String txt = this.getDesc() + " You can also see the following things: ";
-		
-		for (Object i : contents) {
-			txt = txt + " " + i;
+	boolean isLinked(Location l){ //will be called when player attempts to move to a location
+		for(Location loc : this.links){
+			if(loc.equals(l)){
+				return true;
+			}
 		}
-		return txt;
+	return false;
 	}
 	
 	void joinLoc(Location[] locs) {

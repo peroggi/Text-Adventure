@@ -86,8 +86,8 @@ try {
     //below that are constructor functions which create an instance of an omni thing and give it the proper things needed to become a more specific object (person, location, etc)
 
     //constructor functions take arguments like name and description and spit out a new instance
-    /* in another language that would look like one base class, t hen uh four classes that inherit from it and that's it
-=======
+    // in another language that would look like one base class, t hen uh four classes that inherit from it and that's it
+
 try{
  var queststage = 0;
  var currentloc;

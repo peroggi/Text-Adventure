@@ -3,8 +3,9 @@ import java.util.Random;
 
 public class TextAdventure {
 
+	static Player player;
+	static Inputter inputter;
 	int currentstage = 0;
-	static Inputter inputter; //made static so gui can refer to this
 	Location currentLoc;
 	boolean specialInput = false;
 	String[] invalidVerb = {"You can't do that.", "Shit nigger, what are you even trying to do?", "If I let you do THAT, the game would break.", "Are you trying to cheat?"};
@@ -19,11 +20,8 @@ public class TextAdventure {
 	}
 	
 	static void initWorld() {
-		Player player = new Player();  // set up player
-		inputter = new Inputter(player); // set up inputter with instance of player	
-		Item joint = new Item("joint", "That is a joint.");
-		Location streams = new Location("420streams", "This is 420streams.", new Thing[]{joint});
-		//TODO finish
+		player = new Player(); // create player which has world object
+		inputter = new Inputter(player); // create inputter that has a player object
 	}
 	
 	public static void main(String[] args) {
