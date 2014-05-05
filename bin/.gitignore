@@ -1,8 +1,4 @@
-/Input.class
-/Item.class
-/Location.class
-/Person.class
-/TextAdventure.class
-/Thing.class
-/Inventory.class
 /Player.class
+/gui.class
+/gui$1.class
+/TextAdventure$1.class

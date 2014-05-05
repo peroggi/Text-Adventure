@@ -15,14 +15,4 @@ public class Item extends Thing{
 		getable = g;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
-	public String getDesc() {
-		return desc;
-	}
-	public boolean isGetable() {
-		return getable;
-	}
 }
