@@ -1,3 +1,5 @@
+import java.util.Random;
+
 
 public class TextAdventure {
 
@@ -7,9 +9,13 @@ public class TextAdventure {
 	boolean specialInput = false;
 	String[] invalidVerb = {"You can't do that.", "Shit nigger, what are you even trying to do?", "If I let you do THAT, the game would break.", "Are you trying to cheat?"};
 
-	void pick() {
-		// TODO 
-	
+	Object pick(Object[] array) { //pick a random member of any array, not really type safe so be careful
+		Random prng = new Random();
+		int randomNum = prng.nextInt(array.length + 1);
+		return array[randomNum];
+		//TODO figure out generics better and make this type safe maybe?
+		//alternatively we could just make it return an int and this would be called like write(invalidVerb[pick(invalidVerb)]; is that even valid?
+		//though really we're only going to use this to pick invalidverbs I think, but eh
 	}
 	
 	static void initWorld() {
@@ -22,8 +28,6 @@ public class TextAdventure {
 	
 	public static void main(String[] args) {
 		initWorld();
-		//makes gui in thread safe way using computer magic
-		//multithreading scary!
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				Gui.makeGui();

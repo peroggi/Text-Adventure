@@ -1,26 +1,62 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.ExecutionException;
-
+import javax.swing.border.*;
 import javax.swing.*;
 
 public class Gui extends JPanel implements ActionListener {
-	private TextField input;
-	private TextArea output;
+	private JTextField input;
+	private JTextPane output;
+	private JTextPane inventory;
 	String inputText;
 	
 	Gui(){
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c;
 		
-		input = new TextField(20);
+		input = new JTextField(20);
 		input.addActionListener(this);
 		
-		output = new TextArea(5,50);
+		output = new JTextPane();
 		output.setEditable(false);
-		output.setText("Welcome to the 420streams text adventure! Type and press enter!");
+		output.setContentType("text/html");
+		output.setPreferredSize(new Dimension(375,250));
+		output.setText("Welcome to the <em>420streams</em> text adventure! Type and press enter!");
 		
-		this.add(output, BorderLayout.NORTH);
-		this.add(input, BorderLayout.SOUTH);
+		inventory = new JTextPane();
+		inventory.setContentType("text/html");
+		inventory.setText("Inventory:<br/>Empty");
+		inventory.setEditable(false);
+		inventory.setPreferredSize(new Dimension(150,200));
+		
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 2;
+		c.ipady = 100;
+		c.insets = new Insets(5,5,5,5);
+		c.weighty = 1;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(output, c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		c.insets = new Insets(5,5,5,5);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.75;
+		this.add(input, c);
+		
+		c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = 0;
+		c.gridheight = 2;
+		c.insets = new Insets(5,5,5,5);
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 1;
+		this.add(inventory, c);
 	}
 	
 	
@@ -36,6 +72,7 @@ public class Gui extends JPanel implements ActionListener {
 		frame.getContentPane().add(new Gui());
 		frame.pack();
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
