@@ -35,12 +35,7 @@ public class Inputter {
 		if (inputs.get(0).equalsIgnoreCase("look")) { // just testing with look for now, one word input
 			return player.look();
 		}
-		
-		// SHOW INVENTORY
-		
-		if (inputs.get(0).equalsIgnoreCase("inventory")) {
-			return player.showInv();
-		}
+	
 		
 		// GET
 		

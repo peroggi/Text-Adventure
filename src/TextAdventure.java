@@ -5,6 +5,7 @@ public class TextAdventure {
 
 	static Player player;
 	static Inputter inputter;
+	static Gui gui;
 	int currentstage = 0;
 	Location currentLoc;
 	boolean specialInput = false;
@@ -28,7 +29,7 @@ public class TextAdventure {
 		initWorld();
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
-				Gui.makeGui();
+				gui = Gui.makeGui();
 			}
 		});
 	}

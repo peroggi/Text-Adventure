@@ -8,6 +8,7 @@ public class Gui extends JPanel implements ActionListener {
 	private JTextField input;
 	private JTextPane output;
 	private JTextPane inventory;
+	static final String SAFETHREADNAME = "AWT-EventQueue-0";
 	String inputText;
 	
 	Gui(){
@@ -61,40 +62,61 @@ public class Gui extends JPanel implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent evt){
-		inputText = input.getText(); //gets the text that was in the textfield when enter was pressed
-		input.setText(""); //erases the text that was in the textfield
-		InputWorker inputWorker = new InputWorker(); //create thread
+		inputText = input.getText();
+		input.setText(""); 
+		InputWorker inputWorker = new InputWorker();
 		inputWorker.execute(); //calls doInBackground() on new thread		
 	}
 	
-	static void makeGui(){
+	static Gui makeGui(){
 		JFrame frame = new JFrame("420streams Text Adventure");
-		frame.getContentPane().add(new Gui());
+		Gui gui = new Gui();
+		frame.getContentPane().add(gui);
 		frame.pack();
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		return gui;
 		
 	}
 	
 	private class InputWorker extends SwingWorker<String, Void>{
 		String textToWrite;
 		
-		public String doInBackground(){ //everything in here is done on a new thread
+		public String doInBackground(){
 			String outputText = TextAdventure.inputter.checkInput(inputText);
-			System.out.println(Thread.currentThread().getName());
 			return outputText;
 		}
 		
-		public void done(){ //called on the event thread once the worker thread is finished, meaning gui things happen here
-			try{ //I think try statements make a new scope, which is annoying. Or am I just doing things wrong?
-				//if I declare textToWrite in the try statement no one else knows it exists
+		public void done(){
+			try{
 			textToWrite = get(); //gets the return value of doInBackground()
 			}
 			catch(InterruptedException | ExecutionException ignore){}
-			System.out.println(Thread.currentThread().getName());
-			output.setText(this.textToWrite); //thread safe since gui is being manipulated by event thread only
+			output.setText(this.textToWrite);
 			//TODO handle errors properly, handle possibility of player trying to submit input while previous input still processing
+		}
+	}
+	
+	void setOutput(String s) throws ThreadException{
+		if(!Thread.currentThread().getName().equals(SAFETHREADNAME)){//throws error if gui modified from invalid thread
+			throw new ThreadException();
+		}
+		output.setText(s);
+	}
+	
+	void setInv(String s) throws ThreadException{
+		if(!Thread.currentThread().getName().equals(SAFETHREADNAME)){
+			throw new ThreadException();
+		}
+		inventory.setText(s);
+	}
+	
+	class ThreadException extends Exception{
+		String msg = "ThreadException: The GUI has been modified from an invalid thread. This could cause unpredictable behaviour/crashes in the GUI. Modifying thread: ";
+		public String getMessage(){
+			msg = msg + Thread.currentThread().getName();
+			return msg;
 		}
 	}
 }

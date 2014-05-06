@@ -7,24 +7,11 @@ public class Player {
 	ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	// inventory methods 
-	String showInv() {
-		if (inventory.isEmpty()) {
-			return "Nothing in inventory";
-		}
-		else {
-			String invList = "You have: ";
-			for (int i = 0; i< inventory.size(); i++) {
-				invList += inventory.get(i) + " ";
-			}
-			return invList;
-		}
-	}
-	
-	
 	String get(Item toAdd) {
 		if (toAdd.isGetable()) {
 			inventory.add(toAdd);
 			currentLoc.remove(toAdd);
+			javax.swing.SwingUtilities.invokeLater(updateInventory);
 			return "Picked up " + toAdd.getName();
 		}
 		else {
@@ -35,6 +22,7 @@ public class Player {
 	String drop(Item toRemove) {
 		inventory.remove(toRemove);
 		currentLoc.add(toRemove);
+		javax.swing.SwingUtilities.invokeLater(updateInventory);
 		return "Dropped " + toRemove.getName();
 	}
 	
@@ -81,5 +69,22 @@ public class Player {
 		
 		// TODO
 	}
+	//updates the inventory display to reflect what is in the inventory arraylist. Should be called any time that list is modified
+	Runnable updateInventory = new Runnable(){
+		public void run(){
+			if(inventory.isEmpty()){
+				try{TextAdventure.gui.setInv("Inventory:<br/>Empty");}
+				catch(Gui.ThreadException e){System.out.println(e.getMessage());}
+			}
+			else{
+				StringBuilder invDisplay = new StringBuilder("Inventory:");
+				for(Item i : inventory){
+					invDisplay.append("<br/>" + i.getName());
+				}
+				try{TextAdventure.gui.setInv(invDisplay.toString());}
+				catch(Gui.ThreadException e){System.out.println(e.getMessage());}
+			}
+		}
+	};
 	
 }
