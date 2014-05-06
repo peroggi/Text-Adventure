@@ -66,9 +66,9 @@ public class Location extends Thing{
 	void discover(){
 		this.discovered = true;
 		}
-		
-
-	
+	boolean isDiscovered() {
+		return discovered;
+	}	
 	boolean isLinked(Location l){ //will be called when player attempts to move to a location
 		for(Location loc : links){
 			if(loc.equals(l)){
@@ -77,7 +77,6 @@ public class Location extends Thing{
 		}
 	return false;
 	}
-	
 	void testPrintLinks() {
 		System.out.print(this.getName() + " is linked to: ");
 		for (Location l : links) {
@@ -85,14 +84,12 @@ public class Location extends Thing{
 		}
 		System.out.println();
 	}
-	
 	void joinLoc(Location[] locs) {
 		for(Location l : locs){
 			this.linkLocation(l);
 			l.linkLocation(this);
 		}
 	}
-	
 	void linkLocation(Location loc){
 		this.links.add(loc);
 		}

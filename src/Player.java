@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Player {
 	
 	World world = new World(); // world player exists in
-	Location currentLoc = World.locs.get(0); //set to first location
+	Location currentLoc = world.locs.get(0); //set to first location
 	ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	// inventory methods 

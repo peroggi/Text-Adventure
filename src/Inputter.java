@@ -81,47 +81,56 @@ public class Inputter {
 		
 		//MOVE
 		if (inputs.get(0).equalsIgnoreCase("move")) {
-		Location toMoveTo;
+			return move(inputs);
+		}
+		
+		// KILL
+		
+		
+		return "test, you're seeing this because the output string couldn't be found. hurray for threads";
+	}
+	
+	String move(ArrayList<String> inputs) {	// move is its own method to keep things cleaner
+			ArrayList<Location> locs = player.world.getLocs();
+			Location toMoveTo = null;
+			
 			if (inputs.size() < 2) {	// check for second argument to move to
 				System.out.println("user only typed one word");
 				return "You can't move to nowhere.";
 			}
-	
-			System.out.println(inputs.get(1) + " exists: " + player.world.locationExists(inputs.get(1)));
-		
-			if (!player.world.locationExists(inputs.get(1))) { // if loc doesn't exist
+			if (inputs.size() < 2) {	// check for second argument to move to
+				System.out.println("user only typed one word");
+				return "You can't move to nowhere.";
+			}
 				
+			for (Location l : locs) { // find location object to move to
+				if (l.getName().equalsIgnoreCase(inputs.get(1))) {
+					toMoveTo = l;
+					System.out.println(toMoveTo.getName() + " found");
+					break;
+				}
+			}
+					
+			if (toMoveTo.equals(null)) { // if location not found
+				System.out.println("can't find location object"); 
 				return "You can't go somewhere that doesn't exist.";
 			}
-			else { // move if okay
-				System.out.println("loc " + player.world.getLocation(s) + "exists");
-				toMoveTo =  player.world.getLocation(s); // TODO FIX
-				System.out.println("moving from " + player.currentLoc.getName() + " to " + toMoveTo.getName());
-				return player.move(toMoveTo); // move to new loc
+			
+			if (!toMoveTo.isDiscovered()) { // discovered?
+				System.out.println(toMoveTo.getName() + " not discovered");
+				return "You don't know where that is...yet.";
 			}
-			
-			
-			
-			/* else {
 				
-				
-				//if (!(player.currentLoc.isLinked(toMoveTo))) { // locs aren't linked
-				//	System.out.println("locs aren't linked");
-				//	return "You can't go there";
-				//}
-			*/
+			if(toMoveTo.isLinked(player.currentLoc)) { // linked? 
+				System.out.println("moving from " + player.currentLoc.getName() + " to " + toMoveTo.getName());
+				return player.move(toMoveTo); // move
+			}
 
-		
-		
-		
-		//KILL
-		
-		// TODO more actions
-		
-		}
-		
-		return "test, you're seeing this because the output string couldn't be found. hurray for threads";
-	}
-
-
+			else {
+				return "You can't go there from here."; // not linked
+			}
+		// END MOVE() METHOD
+	}	
+	
+	// END INPUTTER CLASS
 }
