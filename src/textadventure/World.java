@@ -1,3 +1,6 @@
+package textadventure;
+
+import items.*;
 
 
 

@@ -1,3 +1,4 @@
+package textadventure;
 import java.util.ArrayList;
 import java.util.Random;
 

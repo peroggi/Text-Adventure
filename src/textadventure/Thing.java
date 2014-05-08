@@ -1,3 +1,4 @@
+package textadventure;
 
 public class Thing {
 	protected String name;
@@ -34,11 +35,10 @@ public class Thing {
 	}
 	
 	public void use() {
-		Gui.setOutputText("You can't use that.");
 	}
 	
-	public void useOn() {
-		Gui.setOutputText("Those two items don't go together");
+	void useOn() {
+		System.out.println("Those two items don't go together");
 	}
 	
 	void move(Location startLoc, Location endLoc) {

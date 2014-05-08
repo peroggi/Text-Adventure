@@ -1,3 +1,6 @@
+package textadventure;
+import items.Item;
+
 import java.util.ArrayList;
 
 public class Player {
