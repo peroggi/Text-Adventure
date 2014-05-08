@@ -82,7 +82,7 @@ public class Inputter {
 			}
 			
 			else {
-				Gui.setOutputText("There's nothing like that to use.");
+				Gui.setOutputText("You don't have anything like that to use.");
 				return;
 			}
 		}

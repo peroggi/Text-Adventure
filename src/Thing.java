@@ -34,10 +34,11 @@ public class Thing {
 	}
 	
 	public void use() {
+		Gui.setOutputText("You can't use that.");
 	}
 	
-	void useOn() {
-		System.out.println("Those two items don't go together");
+	public void useOn() {
+		Gui.setOutputText("Those two items don't go together");
 	}
 	
 	void move(Location startLoc, Location endLoc) {
