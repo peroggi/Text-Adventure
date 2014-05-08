@@ -63,6 +63,33 @@ public class Inputter {
 			}
 		}
 		
+		//USE  
+		if (inputs.get(0).equalsIgnoreCase("use")) {
+			String nameItemRequested = inputs.get(1);
+			Item itemToUse;
+			System.out.println("Something named " + nameItemRequested + " is in inventory: " + player.currentLoc.isInContents(nameItemRequested));
+			if (player.currentLoc.isInContents(nameItemRequested)) {
+				try {
+					itemToUse = (Item) player.currentLoc.findInContents(nameItemRequested);
+				}
+				catch(NullPointerException e) {
+					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
+					return;
+				}
+				System.out.println("Using " + itemToUse.getName());
+				player.use(itemToUse);
+				return;
+			}
+			
+			else {
+				Gui.setOutputText("There's nothing like that to use.");
+				return;
+			}
+		}
+		
+		//USE ON
+		
+		
 		// DROP
 		if (inputs.get(0).equalsIgnoreCase("drop")) { // checks to see if what user typed is an item in inventory, drops it
 			String nameItemRequested = inputs.get(1);
@@ -82,9 +109,7 @@ public class Inputter {
 		}
 		
 		
-		//USE
 		
-		//USE ON
 		
 		//MOVE
 		if (inputs.get(0).equalsIgnoreCase("move")) {

@@ -54,8 +54,8 @@ public class Player {
 		// TODO
 	}
 	
-	void use() {
-		// TODO
+	void use(Item i) {
+		i.use();
 	}
 	
 	void useOn(Thing t) {
