@@ -10,9 +10,8 @@ public class Person extends Thing{
 		alive = true;
 	}
 	
-	boolean get() {
-		System.out.println(this.name + " would not be very happy if you tried to put them in your inventory.");
-		return false;
+	void get() {
+		Gui.setOutputText(this.name + " would not be very happy if you tried to put them in your inventory.");
 	}
 	
 	 /*
@@ -22,9 +21,8 @@ public class Person extends Thing{
 	
 	*/
 	
-	public boolean use() {
-		System.out.println("Using people is wrong.");
-		return false;
+	public void use() {
+		Gui.setOutputText("Using people is wrong.");
 	}
 	
 	boolean useOn(Person person) {
@@ -32,10 +30,9 @@ public class Person extends Thing{
 		return false;
 	}
 	
-	boolean kill() {
+	void kill() {
 		this.alive = false;
 		this.desc = "That is " + this.name + ". That person is dead.";
-		return true;
 		//other things maybe
 	}
 	boolean isAlive(){

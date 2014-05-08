@@ -1,7 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.concurrent.ExecutionException;
-import javax.swing.border.*;
 import javax.swing.*;
 
 public class Gui extends JPanel implements ActionListener {
@@ -9,7 +7,8 @@ public class Gui extends JPanel implements ActionListener {
 	private JTextPane output;
 	private JTextPane inventory;
 	static final String SAFETHREADNAME = "AWT-EventQueue-0";
-	String inputText;
+	static String inputText;
+	static String outputText; //the end result of any action should be to modify this value, which will then be printed on the output gui by the event thread
 	
 	Gui(){
 		this.setLayout(new GridBagLayout());
@@ -60,6 +59,9 @@ public class Gui extends JPanel implements ActionListener {
 		this.add(inventory, c);
 	}
 	
+	static void setOutputText(String t){
+		outputText = t;
+	}
 	
 	public void actionPerformed(ActionEvent evt){
 		inputText = input.getText();
@@ -80,20 +82,16 @@ public class Gui extends JPanel implements ActionListener {
 		
 	}
 	
-	private class InputWorker extends SwingWorker<String, Void>{
-		String textToWrite;
+	private class InputWorker extends SwingWorker<Boolean, Void>{
 		
-		public String doInBackground(){
-			String outputText = TextAdventure.inputter.checkInput(inputText);
-			return outputText;
+		public Boolean doInBackground(){
+			TextAdventure.inputter.checkInput(inputText);
+			return true;
+			//TODO will return false if thread is interrupted for some reason also need to handle thread being interrupted, if not handled could fuck everything up in a huge way
 		}
 		
 		public void done(){
-			try{
-			textToWrite = get(); //gets the return value of doInBackground()
-			}
-			catch(InterruptedException | ExecutionException ignore){}
-			output.setText(this.textToWrite);
+			output.setText(outputText);
 			//TODO handle errors properly, handle possibility of player trying to submit input while previous input still processing
 		}
 	}

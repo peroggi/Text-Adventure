@@ -2,9 +2,8 @@ import java.util.ArrayList;
 
 public class Player {
 	
-	World world = new World(); // world player exists in
-	Location currentLoc = world.locs.get(0); //set to first location
 	ArrayList<Item> inventory = new ArrayList<Item>();
+	Location currentLoc;
 	
 	// inventory methods 
 	String get(Item toAdd) {
@@ -47,25 +46,26 @@ public class Player {
 		return null;
 	}
 	
-	public String look() {
-		return currentLoc.look(); 
+	public void look() {
+		currentLoc.look(); 
 	}
 	
 	void talk(Person p) {
 		// TODO
 	}
 	
-	String use() {
+	void use() {
 		// TODO
 	}
 	
-	String useOn(Thing t) {
+	void useOn(Thing t) {
 		// TODO
 	}
 	
-	String move(Location l) {
+	void move(Location l) {
 		currentLoc = l;
-		return "You are now at " + currentLoc.getName();
+		l.look();
+		return;
 		
 		// TODO
 	}

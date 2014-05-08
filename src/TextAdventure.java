@@ -1,17 +1,26 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class TextAdventure {
 
-	static Player player;
+	static World world;
 	static Inputter inputter;
 	static Gui gui;
-	int currentstage = 0;
-	Location currentLoc;
-	boolean specialInput = false;
-	String[] invalidVerb = {"You can't do that.", "Shit nigger, what are you even trying to do?", "If I let you do THAT, the game would break.", "Are you trying to cheat?"};
+	static int currentstage = 0;
+	static boolean specialInput = false;
+	static String[] invalidVerb = {"You can't do that.", "Shit nigger, what are you even trying to do?", "If I let you do THAT, the game would break.", "Are you trying to cheat?"};
 
-	Object pick(Object[] array) { //pick a random member of any array, not really type safe so be careful
+	static String listToString(ArrayList<String> l){//the class defined ArrayList.toString() doesn't do what I want it to
+		StringBuilder str = new StringBuilder(l.get(0));
+		l.remove(0);
+		for(String s : l){
+			str.append(" " + s);
+		}
+		return str.toString();
+	}
+	
+	static Object pick(Object[] array) { //pick a random member of any array, not really type safe so be careful
 		Random prng = new Random();
 		int randomNum = prng.nextInt(array.length + 1);
 		return array[randomNum];
@@ -21,8 +30,8 @@ public class TextAdventure {
 	}
 	
 	static void initWorld() {
-		player = new Player(); // create player which has world object
-		inputter = new Inputter(player); // create inputter that has a player object
+		world = new World();
+		inputter = new Inputter(); // create inputter that has a player object
 	}
 	
 	public static void main(String[] args) {

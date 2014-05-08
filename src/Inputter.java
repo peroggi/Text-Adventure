@@ -6,8 +6,8 @@ public class Inputter {
 	Player player;
 	private String inputText;
 	
-	Inputter(Player p) {
-		player = p;
+	Inputter() {
+		player = TextAdventure.world.player; //aliasing!
 	}
 	
 	public String getInputText() {
@@ -19,7 +19,7 @@ public class Inputter {
 	}
 	
 	// method to parse input, call corresponding class method in player, return output string
-	public String checkInput(String s) {
+	public void checkInput(String s) {
 		
 		Scanner scanner = new Scanner(s);
 		
@@ -28,12 +28,14 @@ public class Inputter {
 		while (scanner.hasNext()) {
 			inputs.add(scanner.next());
 		}
+		scanner.close();
 		System.out.println(inputs.toString()); // print input to console for testing
 		
 		// LOOK
 		
 		if (inputs.get(0).equalsIgnoreCase("look")) { // just testing with look for now, one word input
-			return player.look();
+			player.look();
+			return;
 		}
 	
 		
@@ -43,13 +45,21 @@ public class Inputter {
 			String nameItemRequested = inputs.get(1);
 			Item itemToGet;
 			if (player.currentLoc.isInContents(nameItemRequested)) {
-				itemToGet = (Item) player.currentLoc.findInContents(nameItemRequested); // returns object matching string from location
+				try{
+					itemToGet = (Item) player.currentLoc.findInContents(nameItemRequested); // returns object matching string from location
+				}
+				catch(NullPointerException e){
+					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
+					return;					
+				}
 				System.out.println("Getting " + itemToGet.getName()); // print to console to test
-				return player.get(itemToGet);
+				player.get(itemToGet);
+				return;
 			}
 			
 			else {
-				return "There's nothing like that to get";
+				Gui.setOutputText("There's nothing like that to get");
+				return;
 			}
 		}
 		
@@ -61,11 +71,13 @@ public class Inputter {
 			if (player.isInInventory(nameItemRequested)) {
 				itemToDrop = (Item) player.findInInventory(nameItemRequested); // returns object matching string from inventory
 				System.out.println("Getting " + itemToDrop.getName()); // print to console to test
-				return player.drop(itemToDrop);
+				player.drop(itemToDrop);
+				return;
 			}
 			
 			else {
-				return "There's nothing like that to get";
+				Gui.setOutputText("You don't have that item.");
+				return;
 			}
 		}
 		
@@ -76,16 +88,26 @@ public class Inputter {
 		
 		//MOVE
 		if (inputs.get(0).equalsIgnoreCase("move")) {
-			return move(inputs);
+			inputs.remove(0);
+			String destination = TextAdventure.listToString(inputs);
+			for(Location l : player.currentLoc.getLinks()){
+				if(destination.equalsIgnoreCase(l.getName()) && l.isDiscovered()){//if linked to currentloc AND discovered, do the move
+					player.move(l);
+					return;
+				}
+			}
+			//move(inputs);
+			Gui.setOutputText("You have tried to move somewhere that doesn't exist.");
+			return;
 		}
 		
-		// KILL
-		
-		
-		return "test, you're seeing this because the output string couldn't be found. hurray for threads";
+		Gui.setOutputText((String) TextAdventure.pick(TextAdventure.invalidVerb)); //prints out invalid verb
+		return;
 	}
 	
-	String move(ArrayList<String> inputs) {	// move is its own method to keep things cleaner
+	/*changed to new way of writing output, rewrote to be shorter back in the if thing above
+	 * 
+	 * String move(ArrayList<String> inputs) {	// move is its own method to keep things cleaner
 			ArrayList<Location> locs = player.world.getLocs();
 			Location toMoveTo = null;
 			
@@ -93,11 +115,8 @@ public class Inputter {
 				System.out.println("user only typed one word");
 				return "You can't move to nowhere.";
 			}
-			if (inputs.size() < 2) {	// check for second argument to move to
-				System.out.println("user only typed one word");
-				return "You can't move to nowhere.";
-			}
-				
+			
+			//doesn't work for multi-word locations ie "move internet backbone"
 			for (Location l : locs) { // find location object to move to
 				if (l.getName().equalsIgnoreCase(inputs.get(1))) {
 					toMoveTo = l;
@@ -125,7 +144,7 @@ public class Inputter {
 				return "You can't go there from here."; // not linked
 			}
 		// END MOVE() METHOD
-	}	
+	}	*/
 	
 	// END INPUTTER CLASS
 }

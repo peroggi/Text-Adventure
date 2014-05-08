@@ -33,13 +33,11 @@ public class Thing {
 		return talkable;
 	}
 	
-	public boolean use() {
-		return false;
+	public void use() {
 	}
 	
-	boolean useOn() {
+	void useOn() {
 		System.out.println("Those two items don't go together");
-		return false;
 	}
 	
 	void move(Location startLoc, Location endLoc) {
@@ -47,7 +45,7 @@ public class Thing {
 		endLoc.add(this);
 	}
 	
-	public String toString() {
+	/*public String toString() { //redundant? getname does same thing
 		return this.name;
-	}
+	}*/
 }
