@@ -67,10 +67,10 @@ public class Inputter {
 		if (inputs.get(0).equalsIgnoreCase("use")) {
 			String nameItemRequested = inputs.get(1);
 			Item itemToUse;
-			System.out.println("Something named " + nameItemRequested + " is in inventory: " + player.currentLoc.isInContents(nameItemRequested));
-			if (player.currentLoc.isInContents(nameItemRequested)) {
+			System.out.println("Something named " + nameItemRequested + " is in inventory: " + player.isInInventory(nameItemRequested));
+			if (player.isInInventory(nameItemRequested)) {
 				try {
-					itemToUse = (Item) player.currentLoc.findInContents(nameItemRequested);
+					itemToUse = (Item) player.findInInventory(nameItemRequested);
 				}
 				catch(NullPointerException e) {
 					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
