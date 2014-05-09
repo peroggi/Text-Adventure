@@ -5,7 +5,7 @@ import textadventure.Gui;
 public class CatPicture extends Item {
 	
 	public CatPicture() {
-		name = "Cat Picture";
+		name = "cat picture";
 		desc = "It is a picture of a cat. The cat is doing a dance.";
 		getable = true;
 	}

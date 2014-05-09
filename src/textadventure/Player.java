@@ -3,6 +3,7 @@ import items.Item;
 
 import java.util.ArrayList;
 
+import locations.Location;
 import npc.Person;
 
 public class Player {

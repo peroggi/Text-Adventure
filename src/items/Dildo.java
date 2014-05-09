@@ -5,7 +5,7 @@ import textadventure.Gui;
 public class Dildo extends Item {
 	
 	public Dildo() {
-		name = "Dildo";
+		name = "dildo";
 		desc = "It's a large pink dildo. It both unsettles and excites you.";
 		getable = true;
 	}

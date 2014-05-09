@@ -1,5 +1,6 @@
 package textadventure;
 
+import locations.Location;
 import items.*;
 
 

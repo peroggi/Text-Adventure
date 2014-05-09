@@ -4,6 +4,8 @@ import items.Item;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import locations.Location;
+
 public class Inputter {
 
 	Player player;

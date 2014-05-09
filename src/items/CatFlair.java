@@ -5,7 +5,7 @@ import textadventure.Gui;
 public class CatFlair extends Item {
 	
 	public CatFlair() {
-		name = "Cat Flair";
+		name = "cat flair";
 		desc = "That's a flair for the Cats subreddit. Flairs usually indicate trusted users.";
 		getable = true;
 	}
