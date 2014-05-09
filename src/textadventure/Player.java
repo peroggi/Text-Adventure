@@ -3,6 +3,8 @@ import items.Item;
 
 import java.util.ArrayList;
 
+import npc.Person;
+
 public class Player {
 	
 	ArrayList<Item> inventory = new ArrayList<Item>();
