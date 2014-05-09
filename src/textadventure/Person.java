@@ -1,3 +1,4 @@
+package textadventure;
 
 public class Person extends Thing{
 	String[] dialogue;

@@ -1,3 +1,6 @@
+package textadventure;
+import items.Item;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -82,7 +85,7 @@ public class Inputter {
 			}
 			
 			else {
-				Gui.setOutputText("You don't have anything like that to use.");
+				Gui.setOutputText("There's nothing like that to use.");
 				return;
 			}
 		}

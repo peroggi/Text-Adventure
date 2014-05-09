@@ -1,3 +1,4 @@
+package textadventure;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -59,7 +60,7 @@ public class Gui extends JPanel implements ActionListener {
 		this.add(inventory, c);
 	}
 	
-	static void setOutputText(String t){
+	public static void setOutputText(String t){
 		outputText = t;
 	}
 	

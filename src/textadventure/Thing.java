@@ -1,3 +1,4 @@
+package textadventure;
 
 public class Thing {
 	protected String name;
@@ -5,6 +6,7 @@ public class Thing {
 	protected boolean getable = false;
 	protected boolean talkable = false;
 	
+	// GETTERS AND SETTERS
 	public String getName(){
 		return this.name;
 	}
@@ -21,6 +23,8 @@ public class Thing {
 		desc = s;
 	}
 	
+	// OTHER CLASS METHODS
+	
 	public boolean isGetable() {
 		return getable;
 	}
@@ -34,10 +38,10 @@ public class Thing {
 	}
 	
 	public void use() {
-		Gui.setOutputText("You can't use that.");
+		Gui.setOutputText("You can't use that");
 	}
 	
-	public void useOn() {
+	void useOn() {
 		Gui.setOutputText("Those two items don't go together");
 	}
 	
@@ -45,8 +49,5 @@ public class Thing {
 		startLoc.remove(this);
 		endLoc.add(this);
 	}
-	
-	/*public String toString() { //redundant? getname does same thing
-		return this.name;
-	}*/
+
 }
