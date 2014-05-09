@@ -15,7 +15,7 @@ public class Player {
 			inventory.add(toAdd);
 			currentLoc.remove(toAdd);
 			javax.swing.SwingUtilities.invokeLater(updateInventory);
-			System.out.println("Picked up " + toAdd.getName());
+			Gui.setOutputText("Picked up " + toAdd.getName());
 		}
 		else {
 			Gui.setOutputText("You can't pick that up");

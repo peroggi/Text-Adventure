@@ -7,6 +7,7 @@ public class Joint extends Item {
 	public Joint() {
 		name = "Joint";
 		desc = "It is a marijuana cigarette. It smells like good weed smells.";
+		getable = true;
 	}
 	
 	public void use() {
