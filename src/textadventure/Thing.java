@@ -6,6 +6,7 @@ public class Thing {
 	protected boolean getable = false;
 	protected boolean talkable = false;
 	
+	// GETTERS AND SETTERS
 	public String getName(){
 		return this.name;
 	}
@@ -22,6 +23,8 @@ public class Thing {
 		desc = s;
 	}
 	
+	// OTHER CLASS METHODS
+	
 	public boolean isGetable() {
 		return getable;
 	}
@@ -35,18 +38,16 @@ public class Thing {
 	}
 	
 	public void use() {
+		Gui.setOutputText("You can't use that");
 	}
 	
 	void useOn() {
-		System.out.println("Those two items don't go together");
+		Gui.setOutputText("Those two items don't go together");
 	}
 	
 	void move(Location startLoc, Location endLoc) {
 		startLoc.remove(this);
 		endLoc.add(this);
 	}
-	
-	/*public String toString() { //redundant? getname does same thing
-		return this.name;
-	}*/
+
 }

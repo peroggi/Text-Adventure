@@ -12,9 +12,11 @@ public class World {
 		
 		// set starting location and items
 		player = new Player();
-		Item joint = new Item("joint", "That is a joint.");
-		Item testItem = new Item("thing", "does stuff");
-		Location streams = new Location("420streams", "This is 420streams.", new Thing[]{joint, testItem});
+		
+		Joint joint = new Joint();
+		System.out.println(joint.getName() + " " + joint.getDesc() + " " + joint.isGetable());
+		
+		Location streams = new Location("420streams", "This is 420streams.", new Thing[]{joint});
 		streams.discover();
 		player.currentLoc = streams;
 		

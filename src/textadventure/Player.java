@@ -9,23 +9,24 @@ public class Player {
 	Location currentLoc;
 	
 	// inventory methods 
-	String get(Item toAdd) {
+	public void get(Item toAdd) {
+		System.out.println("Gettable: " + toAdd.isGetable());
 		if (toAdd.isGetable()) {
 			inventory.add(toAdd);
 			currentLoc.remove(toAdd);
 			javax.swing.SwingUtilities.invokeLater(updateInventory);
-			return "Picked up " + toAdd.getName();
+			System.out.println("Picked up " + toAdd.getName());
 		}
 		else {
-			return "You can't pick that up.";
+			Gui.setOutputText("You can't pick that up");
 		}
 	}
 	
-	String drop(Item toRemove) {
+	public void drop(Item toRemove) {
 		inventory.remove(toRemove);
 		currentLoc.add(toRemove);
 		javax.swing.SwingUtilities.invokeLater(updateInventory);
-		return "Dropped " + toRemove.getName();
+		Gui.setOutputText("Dropped " + toRemove.getName());
 	}
 	
 	boolean isInInventory(String s){ // looks for a thing named s in inventory
