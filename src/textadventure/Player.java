@@ -1,7 +1,7 @@
 package textadventure;
 import items.Item;
-
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
 public class Player {
 	
@@ -9,24 +9,40 @@ public class Player {
 	Location currentLoc;
 	
 	// inventory methods 
-	public void get(Item toAdd) {
-		System.out.println("Gettable: " + toAdd.isGetable());
-		if (toAdd.isGetable()) {
-			inventory.add(toAdd);
-			currentLoc.remove(toAdd);
-			javax.swing.SwingUtilities.invokeLater(updateInventory);
-			Gui.setOutputText("Picked up " + toAdd.getName());
+	public void get(String toGet) {
+		if(currentLoc.isInContents(toGet)){
+			Thing getting = currentLoc.findInContents(toGet);
+			if(getting.getClass().equals(Person.class)){
+				Gui.setOutputText(getting.getName() + " would not be very happy if you tried to put them in your inventory.");
+				return;
+			}
+			if(getting.isGetable()){
+				inventory.add((Item) getting);
+				currentLoc.remove(getting);	
+				SwingUtilities.invokeLater(updateInventory);
+				Gui.setOutputText("Picked up " + getting.getName());
+				return;
+			}
+			else{
+				Gui.setOutputText("You can't pick that up");
+			}
 		}
-		else {
-			Gui.setOutputText("You can't pick that up");
+		else{
+			Gui.setOutputText("Whatever you're trying to pick up, it does not exist.");
 		}
 	}
 	
-	public void drop(Item toRemove) {
-		inventory.remove(toRemove);
-		currentLoc.add(toRemove);
-		javax.swing.SwingUtilities.invokeLater(updateInventory);
-		Gui.setOutputText("Dropped " + toRemove.getName());
+	public void drop(String toRemove) {
+		if(isInInventory(toRemove)){
+			Item dropping =(Item) findInInventory(toRemove);
+			inventory.remove(dropping);
+			currentLoc.add(dropping);
+			SwingUtilities.invokeLater(updateInventory);
+			Gui.setOutputText("You have dropped " + dropping.getName());
+		}
+		else{
+			Gui.setOutputText("You can't drop something you don't have.");
+		}
 	}
 	
 	boolean isInInventory(String s){ // looks for a thing named s in inventory
@@ -50,8 +66,24 @@ public class Player {
 		return null;
 	}
 	
-	public void look() {
-		currentLoc.look(); 
+	public void look(String toLook) {
+		if(!toLook.isEmpty()){//if argument was supplied
+			if(isInInventory(toLook)){
+				Gui.setOutputText(findInInventory(toLook).getDesc());
+			}
+			else if(currentLoc.isInContents(toLook)){
+				Gui.setOutputText(currentLoc.findInContents(toLook).getDesc());
+			}
+			else if(currentLoc.getName().equals(toLook)){
+				currentLoc.look();
+			}
+			else{
+				Gui.setOutputText("You look at something that exists only in your imagination");//indicates invalid argument
+			}
+		}
+		else{
+			currentLoc.look();
+		} 
 	}
 	
 	void talk(Person p) {

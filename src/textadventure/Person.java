@@ -1,13 +1,11 @@
 package textadventure;
 
 public class Person extends Thing{
-	String[] dialogue;
 	private boolean alive;
 	
 	Person(String name, String desc, String[] dialogue) {
 		this.name = name;
 		this.desc = desc;
-		this.dialogue = dialogue;
 		alive = true;
 	}
 	
@@ -26,9 +24,8 @@ public class Person extends Thing{
 		Gui.setOutputText("Using people is wrong.");
 	}
 	
-	boolean useOn(Person person) {
-		System.out.println( person.name + " does not want that");
-		return false;
+	void useOn(Person person) {
+		Gui.setOutputText( person.name + " does not want that");
 	}
 	
 	void kill() {
