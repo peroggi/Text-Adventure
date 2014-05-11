@@ -1,15 +1,19 @@
-package textadventure;
+package npc;
+
+import textadventure.Gui;
+import textadventure.Thing;
 
 public class Person extends Thing{
 	private boolean alive;
+
 	
-	Person(String name, String desc, String[] dialogue) {
+	public Person(String name, String desc, String[] dialogue) {
 		this.name = name;
 		this.desc = desc;
 		alive = true;
 	}
 	
-	void get() {
+	public void get() {
 		Gui.setOutputText(this.name + " would not be very happy if you tried to put them in your inventory.");
 	}
 	
@@ -24,16 +28,16 @@ public class Person extends Thing{
 		Gui.setOutputText("Using people is wrong.");
 	}
 	
-	void useOn(Person person) {
+	public void useOn(Person person) {
 		Gui.setOutputText( person.name + " does not want that");
 	}
 	
-	void kill() {
+	public void kill() {
 		this.alive = false;
 		this.desc = "That is " + this.name + ". That person is dead.";
 		//other things maybe
 	}
-	boolean isAlive(){
+	public boolean isAlive(){
 		return this.alive;
 	}
 }

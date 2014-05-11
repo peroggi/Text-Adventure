@@ -1,13 +1,16 @@
-package textadventure;
+package locations;
 import java.util.ArrayList;
 import java.util.List;
+
+import textadventure.Gui;
+import textadventure.Thing;
 public class Location extends Thing{
 
-	private List<Location> links = new ArrayList<Location>();
-	private List<Thing> contents = new ArrayList<Thing>();
-	private boolean discovered = false;
+	protected List<Location> links = new ArrayList<Location>();
+	protected List<Thing> contents = new ArrayList<Thing>();
+	protected boolean discovered = false;
 	
-	Location(String name, String desc, Thing[] contents){
+	public Location(String name, String desc, Thing[] contents){
 		this.setName(name);
 		this.setDesc(desc);
 		for(Thing o : contents){
@@ -16,11 +19,7 @@ public class Location extends Thing{
 		System.out.println(name + " location created."); // for testing
 	}
 	
-	/*public String toString() { again redundant, this inherits getname() from thing
-		return name;
-	}*/
-	
-	void look() {
+	public void look() {
 		StringBuilder txt = new StringBuilder(desc + "<br/>You can also see the following things:");
 		if(contents.isEmpty()){txt.append("Nothing.");}
 		else{
@@ -36,15 +35,16 @@ public class Location extends Thing{
 		
 	}
 	
-	void remove(Thing o) {	// removes a thing from the location
+	public void remove(Thing o) {	// removes a thing from the location
 		this.contents.remove(o);
 	}
-	void add(Thing o){	// adds a thing to the location
+	
+	public void add(Thing o){	// adds a thing to the location
 		this.contents.add(o);
 		}	
 	
 
-	boolean isInContents(String n){ //checks if something named s exists  in contents
+	public boolean isInContents(String n){ //checks if something named s exists  in contents
 		for(Thing i: contents){
 			if(i.getName().equalsIgnoreCase(n)){
 				return true;
@@ -54,7 +54,7 @@ public class Location extends Thing{
 		return false;
 	}
 	
-	Thing findInContents(String s) { // returns the object named s from contents
+	public Thing findInContents(String s) { // returns the object named s from contents
 		for (Thing i: contents) {
 			if (i.getName().equalsIgnoreCase(s)) {
 				return i;
@@ -63,13 +63,15 @@ public class Location extends Thing{
 		return null;
 	}
 	
-	void discover(){
+	public void discover(){
 		this.discovered = true;
-		}
-	boolean isDiscovered() {
+	}
+
+	public boolean isDiscovered() {
 		return discovered;
 	}	
-	List<Location> getLinks(){ //will be called when player attempts to move to a location
+	
+	public List<Location> getLinks(){ //will be called when player attempts to move to a location
 		return links;
 	}
 	/*void testPrintLinks() {
@@ -79,13 +81,15 @@ public class Location extends Thing{
 		}
 		System.out.println();
 	}*/
-	void joinLoc(Location[] locs) {
+	
+	public void joinLoc(Location[] locs) {
 		for(Location l : locs){
 			this.linkLocation(l);
 			l.linkLocation(this);
 		}
 	}
-	 void linkLocation(Location loc){
+	
+	public void linkLocation(Location loc){
 		this.links.add(loc);
 		}
 	

@@ -6,15 +6,17 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import locations.Location;
+
 public class Inputter {
-	
+
 	Player player;
 	private String inputText;
-	
+
 	Inputter() {
 		player = TextAdventure.world.player; //aliasing!
 	}
-	
+
 	public String getInputText() {
 		return inputText;
 	}
@@ -22,7 +24,7 @@ public class Inputter {
 	public void setInputText(String inputText) {
 		this.inputText = inputText;
 	}
-	
+
 	// method to parse input, call corresponding class method in player, return output string
 	public void checkInput(String s) {
 		System.out.println(s);
@@ -33,14 +35,16 @@ public class Inputter {
 		Pattern movePattern = Pattern.compile("^move(\\s|$)");
 		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");//\\w+ means any amount of word characters(letter/number), $ means end of line
 		Matcher argumentMatcher = argumentPattern.matcher(s);
+
 		Scanner scanner = new Scanner(s);
-		
+
 		ArrayList<String> inputs = new ArrayList<String>();
 		// put words user typed into arraylist
 		while (scanner.hasNext()) {
 			inputs.add(scanner.next());
 		}
 		scanner.close();
+
 		//System.out.println(inputs.toString()); // print input to console for testing
 		
 		// LOOK
@@ -53,9 +57,10 @@ public class Inputter {
 				player.look("");	
 			}
 			return;
+
 		}
-	
-		
+		// END LOOK
+
 		// GET
 		
 		if (getPattern.matcher(s).find()) { // checks to see if what user typed is an item in location, gets it
@@ -68,10 +73,12 @@ public class Inputter {
 				return;
 			}
 		}
+		// END GET
 		
 		//USE  
 		if (inputs.get(0).equalsIgnoreCase("use")) {
-			String nameItemRequested = inputs.get(1);
+			inputs.remove(0);
+			String nameItemRequested = TextAdventure.listToString(inputs);
 			Item itemToUse;
 			System.out.println("Something named " + nameItemRequested + " is in inventory: " + player.isInInventory(nameItemRequested));
 			if (player.isInInventory(nameItemRequested)) {
@@ -86,16 +93,16 @@ public class Inputter {
 				player.use(itemToUse);
 				return;
 			}
-			
 			else {
 				Gui.setOutputText("There's nothing like that to use.");
 				return;
 			}
 		}
+		// END USE
 		
-		//USE ON
-		
-		
+		//USE ON TODO
+
+
 		// DROP
 		if (dropPattern.matcher(s).find()) { // checks to see if what user typed is an item in inventory, drops it
 			if(argumentMatcher.find()){
@@ -107,10 +114,8 @@ public class Inputter {
 				return;
 			}
 		}
-		
-		
-		
-		
+		// END DROP
+
 		//MOVE
 		if (movePattern.matcher(s).find()) {
 			if(argumentMatcher.find()){
@@ -131,10 +136,10 @@ public class Inputter {
 				return;
 			}
 		}
+		// END MOVE
 		
+		//NONE OF THE ABOVE
 		Gui.setOutputText((String) TextAdventure.pick(TextAdventure.invalidVerb)); //prints out invalid verb
 		return;
 	}
-	
-	// END INPUTTER CLASS
 }

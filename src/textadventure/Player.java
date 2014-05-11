@@ -3,6 +3,9 @@ import items.Item;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
+import locations.Location;
+import npc.Person;
+
 public class Player {
 	
 	ArrayList<Item> inventory = new ArrayList<Item>();
