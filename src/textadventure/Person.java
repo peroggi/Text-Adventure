@@ -1,28 +1,23 @@
-package npc;
+package textadventure;
 
-import textadventure.Gui;
-import textadventure.Thing;
 
 public class Person extends Thing{
 	private boolean alive;
 
 	
-	public Person(String name, String desc, String[] dialogue) {
+	public Person(String name, String desc) {
 		this.name = name;
 		this.desc = desc;
-		alive = true;
+		this.alive = true;
 	}
 	
 	public void get() {
 		Gui.setOutputText(this.name + " would not be very happy if you tried to put them in your inventory.");
 	}
 	
-	 /*
-	boolean talk() {
-		// TODO
+	void talk(String topic){
+		Gui.setOutputText("Hello!");
 	}
-	
-	*/
 	
 	public void use() {
 		Gui.setOutputText("Using people is wrong.");

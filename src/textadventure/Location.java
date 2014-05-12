@@ -1,9 +1,6 @@
-package locations;
+package textadventure;
 import java.util.ArrayList;
 import java.util.List;
-
-import textadventure.Gui;
-import textadventure.Thing;
 public class Location extends Thing{
 
 	protected List<Location> links = new ArrayList<Location>();

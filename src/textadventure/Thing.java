@@ -1,6 +1,5 @@
 package textadventure;
 
-import locations.Location;
 
 public class Thing {
 	protected String name;

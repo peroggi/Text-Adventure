@@ -1,10 +1,9 @@
 package textadventure;
 import items.Item;
-import java.util.ArrayList;
-import javax.swing.SwingUtilities;
 
-import locations.Location;
-import npc.Person;
+import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
 
 public class Player {
 	
@@ -14,6 +13,7 @@ public class Player {
 	// inventory methods 
 	public void get(String toGet) {
 		if(currentLoc.isInContents(toGet)){
+			System.out.println(toGet);
 			Thing getting = currentLoc.findInContents(toGet);
 			if(getting.getClass().equals(Person.class)){
 				Gui.setOutputText(getting.getName() + " would not be very happy if you tried to put them in your inventory.");
@@ -89,8 +89,15 @@ public class Player {
 		} 
 	}
 	
-	void talk(Person p) {
-		// TODO
+	void talk(String talkTo) {
+		if(currentLoc.isInContents(talkTo)){
+			if(currentLoc.findInContents(talkTo).getClass().equals(Person.class)){
+				Inputter.currentConvo = new Conversation(talkTo);
+			}
+		}
+		else{
+			Gui.setOutputText("That person doesn't exist");
+		}
 	}
 	
 	void use(Item i) {

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<dialogue>
+	<perogi>
+		<greeting>Hi, I'm Perogi. Welcome to shitflix</greeting>
+		<invalid>I have no strong feelings on that subject.</invalid>
+		<shitflix>That's this place, everyone was kidnapped though</shitflix>
+	</perogi>
+	<toast>
+		<greeting>Toast holds up a picture of a cat. The cat is waving.</greeting>
+		<invalid>Toast holds up a picture of a cat. The cat is confused.</invalid>
+	</toast>
+</dialogue>

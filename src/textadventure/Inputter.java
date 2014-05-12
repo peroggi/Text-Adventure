@@ -6,11 +6,10 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import locations.Location;
-
 public class Inputter {
 
 	Player player;
+	static Conversation currentConvo = null;
 	private String inputText;
 
 	Inputter() {
@@ -27,14 +26,26 @@ public class Inputter {
 
 	// method to parse input, call corresponding class method in player, return output string
 	public void checkInput(String s) {
+		if(currentConvo != null){
+			if(s.equalsIgnoreCase("cancel")){
+				currentConvo = null;
+				player.currentLoc.look();
+			}
+			else{
+				currentConvo.talk(s);
+			}
+			return;
+		}
 		System.out.println(s);
 		Pattern lookPattern = Pattern.compile("^look(\\s|$)");//^indicates start of line, \s means a space, the first \ escapes the second \
 		Pattern getPattern = Pattern.compile("^get(\\s|$)");
 		Pattern dropPattern = Pattern.compile("^drop(\\s|$)");
 		Pattern usePattern = Pattern.compile("^use(\\s|$)");
 		Pattern movePattern = Pattern.compile("^move(\\s|$)");
+		Pattern talkPattern = Pattern.compile("^talk(\\s|$)");
 		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");//\\w+ means any amount of word characters(letter/number), $ means end of line
 		Matcher argumentMatcher = argumentPattern.matcher(s);
+		Matcher trailingSpace = Pattern.compile("\\s$").matcher(s);
 
 		Scanner scanner = new Scanner(s);
 
@@ -51,7 +62,7 @@ public class Inputter {
 		
 		if (lookPattern.matcher(s).find()) { // just testing with look for now, one word input
 			if(argumentMatcher.find()){//checks if there are arguments (object to look at), only works for one word arguments right now
-				player.look(s.substring(argumentMatcher.start()+1, argumentMatcher.end()));//calls player.look with only the argument, not the verb(removes "look" from "look joint")
+				player.look(s.substring(argumentMatcher.start()+1, s.length()));//calls player.look with only the argument, not the verb(removes "look" from "look joint")
 			}
 			else{
 				player.look("");	
@@ -60,12 +71,23 @@ public class Inputter {
 
 		}
 		// END LOOK
+		
+		if(talkPattern.matcher(s).find()){
+			if(argumentMatcher.find()){
+				player.talk(s.substring(argumentMatcher.start()+1, s.length()));
+			}
+			else{
+				Gui.setOutputText("You talk to yourself for a while, it was a rivetting conversation");
+			}
+			return;
+		}
 
 		// GET
 		
 		if (getPattern.matcher(s).find()) { // checks to see if what user typed is an item in location, gets it
 			if(argumentMatcher.find()){
-				player.get(s.substring(argumentMatcher.start()+1, argumentMatcher.end()));
+				System.out.println("found argument");
+				player.get(s.substring(argumentMatcher.start()+1, s.length()));
 				return;
 			}
 			else{
@@ -106,7 +128,7 @@ public class Inputter {
 		// DROP
 		if (dropPattern.matcher(s).find()) { // checks to see if what user typed is an item in inventory, drops it
 			if(argumentMatcher.find()){
-				player.drop(s.substring(argumentMatcher.start()+1, argumentMatcher.end()));
+				player.drop(s.substring(argumentMatcher.start()+1, s.length()));
 				return;
 			}
 			else{
@@ -119,9 +141,7 @@ public class Inputter {
 		//MOVE
 		if (movePattern.matcher(s).find()) {
 			if(argumentMatcher.find()){
-				Matcher removeVerb = movePattern.matcher(s);
-				removeVerb.find();
-				String destination = s.substring(removeVerb.end(), s.length());
+				String destination = s.substring(argumentMatcher.start()+1, s.length());
 				for(Location l : player.currentLoc.getLinks()){
 					if(destination.equalsIgnoreCase(l.getName())){
 						player.move(l);
