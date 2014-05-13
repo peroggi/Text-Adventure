@@ -20,7 +20,7 @@ public class World {
 		
 		CatPicture cp = new CatPicture();
 		
-		Location streams = new Location("420streams", "This is 420streams.", new Thing[]{joint, dildo, cp, perogi});
+		Location streams = new Location("shitflix", "This is shitflix.", new Thing[]{joint, dildo, cp, perogi});
 		streams.discover();
 		player.currentLoc = streams;
 		

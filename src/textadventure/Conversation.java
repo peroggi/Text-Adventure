@@ -24,7 +24,8 @@ public class Conversation {
 				break;
 			}
 		}
-		Gui.setOutputText(talkee.getChildNodes().item(GREETING).getFirstChild().getNodeValue());
+		String output = talkee.getChildNodes().item(GREETING).getFirstChild().getNodeValue();
+		Gui.setOutputText(buildDialogue(output));
 	}
 	
 	static void loadDialogue(){
@@ -37,16 +38,27 @@ public class Conversation {
 	}
 	
 	void talk(String topic){
+		topic = topic.replaceAll("\\s", "");
 		NodeList topicList = talkee.getChildNodes();
-		for(int i = 4; i<topicList.getLength(); i++){
+		for(int i = 5; i<topicList.getLength(); i+=2){
 			if(topicList.item(i).getNodeName().equalsIgnoreCase(topic)){
-				System.out.println("found topic");
-				Gui.setOutputText(topicList.item(i).getFirstChild().getNodeValue());
+				String output = topicList.item(i).getFirstChild().getNodeValue();
+				Gui.setOutputText(buildDialogue(output));
 				return;
 			}
 		}
-		System.out.println(topicList.item(0).getNodeValue());
 		Gui.setOutputText(topicList.item(INVALID).getFirstChild().getNodeValue());
 		
+	}
+	
+	String buildDialogue(String dialogue){
+		dialogue = dialogue.replaceAll("\\s@", " <em>");
+		dialogue = dialogue.replaceAll("/@", "</em>");
+		StringBuilder finalDialogue = new StringBuilder(dialogue);
+		if(!talkee.getNodeName().equalsIgnoreCase("toast")){
+			finalDialogue.insert(0, talkee.getNodeName() + " says:<br/>");
+		}
+		finalDialogue.append("<br/><br/>Type something to ask " + talkee.getNodeName() + " about, or type cancel to stop talking.");
+		return finalDialogue.toString();
 	}
 }
