@@ -22,7 +22,7 @@ public class Gui extends JPanel implements ActionListener {
 		output.setEditable(false);
 		output.setContentType("text/html");
 		output.setPreferredSize(new Dimension(375,250));
-		output.setText("Welcome to the <em>420streams</em> text adventure! Type and press enter!");
+		output.setText("Welcome to the <strong>Shitflix</strong> text adventure! Type and press enter!");
 		
 		inventory = new JTextPane();
 		inventory.setContentType("text/html");
@@ -72,7 +72,7 @@ public class Gui extends JPanel implements ActionListener {
 	}
 	
 	static Gui makeGui(){
-		JFrame frame = new JFrame("420streams Text Adventure");
+		JFrame frame = new JFrame("Shitflix Text Adventure");
 		Gui gui = new Gui();
 		frame.getContentPane().add(gui);
 		frame.pack();

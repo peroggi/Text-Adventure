@@ -37,6 +37,7 @@ public class TextAdventure {
 	
 	public static void main(String[] args) {
 		initWorld();
+		Conversation.loadDialogue();
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				gui = Gui.makeGui();

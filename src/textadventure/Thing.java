@@ -1,5 +1,9 @@
 package textadventure;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> FETCH_HEAD
 public class Thing {
 	protected String name;
 	protected String desc;

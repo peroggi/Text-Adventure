@@ -1,10 +1,10 @@
 package textadventure;
+<<<<<<< HEAD:src/textadventure/Location.java
 
+=======
+>>>>>>> FETCH_HEAD:src/textadventure/Location.java
 import java.util.ArrayList;
 import java.util.List;
-
-import textadventure.Gui;
-import textadventure.Thing;
 public class Location extends Thing{
 
 	protected List<Location> links = new ArrayList<Location>();
