@@ -1,5 +1,7 @@
 package items;
 
+import javax.swing.SwingUtilities;
+
 import textadventure.Gui;
 import textadventure.Thing;
 import textadventure.World;
@@ -10,25 +12,26 @@ public class Item extends Thing{
 	getable = true;
 	}
 	
-	public void look() {
-		Gui.setOutputText("It's an item. " + this.getDesc());
-	}
+
 	// TODO change get items 
-	public void get(){
+	public Boolean pickUp(){
 		if (this.getable) {
-			System.out.println("Getting " + this.getName()); // print to console to test
-			World.getPlayer().get(this);
-			return;
+			System.out.println("Get " + this.getName()); // print to console to test
+			return true;
 		}
 		else {
-			System.out.println("Not gettable");
-			Gui.setOutputText("You can't get that.");
-			return;
+			Gui.setOutputText("You can't pick that up");
+			return false;
 		}
 	}
 	
 	public void use() {
-		Gui.setOutputText("Using that by itself doesn't do anything.");
+		Gui.setOutputText("That doesn't do anything.");
 		return;
+	}
+	
+	// TODO use on for Item
+	public void useOn() {
+		
 	}
 }

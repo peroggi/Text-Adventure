@@ -11,11 +11,11 @@ public class RedditPost extends Item {
 		getable = true;
 	}
 	
-	public void use() { // TODO shit that happens
+	public void use() { // TODO location visibility
 		
 		if (hasFlair && World.getPlayer().getCurrentLoc().equals(todayILearned)) {
 			System.out.println("reddit death");
-			//redditdeath(); // TODO redditdeath
+			//redditdeath(); // TODO redditdeath event
 			return;
 		}
 		if (!hasFlair && World.getPlayer().getCurrentLoc().equals(todayILearned)) {
@@ -32,7 +32,7 @@ public class RedditPost extends Item {
 	}
 }
 /*
-	// USEON TODO
+	
     redditpostITEM.useon = function (user) {
         if (user == todayilearnedflairITEM) {
             writeOut("You stamp the post with your flair. People will now assume a trusted user composed this post.");

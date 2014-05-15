@@ -8,31 +8,38 @@ public class NaziFlag extends Item {
 	public NaziFlag() {
 		name = "nazi flag";
 		desc = "That is a Nazi Flag, beloved by members of the Reich Forums.";
-		getable = false;
+		getable = true;
 	}
 	
 	
 	public void setGetable() {
 		super.setGetable();
 	}
-
-	public void get() {
+	
+	// TODO fix this. if not getable runs else, but if is fucked. tries World.getPlayer().pickUp(this.name); and loops
+	// to player and back
+	public Boolean pickUp() {
 		if (this.getable) {
 			if (World.getPlayer().isInInventory(this.name)) {
 				Gui.setOutputText("You already have that in your inventory, where are you going to put it?");
-				return;
+				return false;
 			}
 			Gui.setOutputText("You get " + this.name);
-			World.getPlayer().get(this);
-			return;
+			World.getPlayer().pickUp(this.name);
+			return true;
 		}
 		else {
 			Gui.setOutputText("You try to get the flag but Sachson puts a hand on your shoulder and shakes his head at you.");
-            return;
+            return false;
 		}
 	}
 	
+	public void use() {
+		Gui.setOutputText("It's a flag. What could you possibly use it for?");
+	}
+	
 	// TODO make items and locations visible without being a turd
+	// TODO make nazi flag and lighter work
 	public void useOn(Item i) {
 		if (World.getPlayer().isInInventory("lighter")) {
 			if (World.getPlayer().getCurrentLoc().equals(reichForums)) {

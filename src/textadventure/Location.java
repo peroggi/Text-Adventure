@@ -22,7 +22,7 @@ public class Location extends Thing{
 		if(contents.isEmpty()){txt.append("Nothing.");}
 		else{
 			for(Thing t : contents){
-				txt.append(" " + t.getName());
+				txt.append(" " + t.getName()); // TODO make it look cleaner, add commas
 			}
 		}
 		txt.append("<br/>You also know of the following links from this location:");

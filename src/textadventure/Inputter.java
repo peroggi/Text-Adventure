@@ -24,18 +24,18 @@ public class Inputter {
 	}
 
 	// method to parse input, call corresponding class method in player, return output string
-	public void checkInput(String s) {
+	public void checkInput(String input) {
 		if(currentConvo != null){
-			if(s.equalsIgnoreCase("cancel")){
+			if(input.equalsIgnoreCase("cancel")){
 				currentConvo = null;
 				player.currentLoc.look();
 			}
 			else{
-				currentConvo.talk(s);
+				currentConvo.talk(input);
 			}
 			return;
 		}
-		System.out.println(s);
+		System.out.println(input);
 		Pattern lookPattern = Pattern.compile("^look(\\s|$)");//^indicates start of line, \s means a space, the first \ escapes the second \
 		Pattern getPattern = Pattern.compile("^get(\\s|$)");
 		Pattern dropPattern = Pattern.compile("^drop(\\s|$)");
@@ -43,10 +43,10 @@ public class Inputter {
 		Pattern movePattern = Pattern.compile("^move(\\s|$)");
 		Pattern talkPattern = Pattern.compile("^talk(\\s|$)");
 		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");//\\w+ means any amount of word characters(letter/number), $ means end of line
-		Matcher argumentMatcher = argumentPattern.matcher(s);
-		Matcher trailingSpace = Pattern.compile("\\s$").matcher(s);
+		Matcher argumentMatcher = argumentPattern.matcher(input);
+		Matcher trailingSpace = Pattern.compile("\\s$").matcher(input);
 
-		Scanner scanner = new Scanner(s);
+		Scanner scanner = new Scanner(input);
 
 		ArrayList<String> inputs = new ArrayList<String>();
 		// put words user typed into arraylist
@@ -59,9 +59,9 @@ public class Inputter {
 		
 		// LOOK
 		
-		if (lookPattern.matcher(s).find()) { // just testing with look for now, one word input
+		if (lookPattern.matcher(input).find()) { // just testing with look for now, one word input
 			if(argumentMatcher.find()){//checks if there are arguments (object to look at), only works for one word arguments right now
-				player.look(s.substring(argumentMatcher.start()+1, s.length()));//calls player.look with only the argument, not the verb(removes "look" from "look joint")
+				player.look(input.substring(argumentMatcher.start()+1, input.length()));//calls player.look with only the argument, not the verb(removes "look" from "look joint")
 			}
 			else{
 				player.look("");	
@@ -71,9 +71,9 @@ public class Inputter {
 		}
 		// END LOOK
 		
-		if(talkPattern.matcher(s).find()){
+		if(talkPattern.matcher(input).find()){
 			if(argumentMatcher.find()){
-				player.talk(s.substring(argumentMatcher.start()+1, s.length()));
+				player.talk(input.substring(argumentMatcher.start()+1, input.length()));
 			}
 			else{
 				Gui.setOutputText("You talk to yourself for a while, it was a rivetting conversation");
@@ -81,15 +81,16 @@ public class Inputter {
 			return;
 		}
 
-		// GET
-		
-		if (getPattern.matcher(s).find()) { // checks to see if what user typed is an item in location, gets it
+		// GET/PICK UP
+		if (getPattern.matcher(input).find()) { // checks to see if what user typed is an item in location, gets it
 			if(argumentMatcher.find()){
 				System.out.println("found argument");
-				player.get(s.substring(argumentMatcher.start()+1, s.length()));
+				player.pickUp(input.substring(argumentMatcher.start()+1, input.length()));
 				return;
 			}
-
+			
+			// It looks like this is no longer needed
+			/*
 			inputs.remove(0);
 			String nameItemRequested = TextAdventure.listToString(inputs);
 			Item itemToGet;
@@ -101,11 +102,12 @@ public class Inputter {
 					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
 					return;					
 				}	
-			System.out.println("Trying to get " + itemToGet.getName()); // print to console to test
-			itemToGet.get();	
+			itemToGet.pickUp();	
 			return;
 			}
-else{
+			
+			*/
+			else{
 				Gui.setOutputText("You can't pick up nothing, faggot.");
 				return;
 			}
@@ -113,6 +115,17 @@ else{
 		// END GET
 		
 		//USE  
+		if (usePattern.matcher(input).find()) {
+			if (argumentMatcher.find()) {
+				player.use(input.substring(argumentMatcher.start()+1, input.length()));
+				return;
+			}
+			else {
+				Gui.setOutputText("There's nothing like that to use.");
+				return;
+			}
+		}
+		/* OLD USE
 		if (inputs.get(0).equalsIgnoreCase("use")) {
 			inputs.remove(0);
 			String nameItemRequested = TextAdventure.listToString(inputs);
@@ -120,7 +133,7 @@ else{
 			System.out.println("Something named " + nameItemRequested + " is in inventory: " + player.isInInventory(nameItemRequested));
 			if (player.isInInventory(nameItemRequested)) {
 				try {
-					itemToUse = (Item) player.findInInventory(nameItemRequested);
+					itemToUse = (Item) player.getFromInventory(nameItemRequested);
 				}
 				catch(NullPointerException e) {
 					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
@@ -135,15 +148,16 @@ else{
 				return;
 			}
 		}
+		*/
 		// END USE
 		
 		//USE ON TODO
 
 
 		// DROP
-		if (dropPattern.matcher(s).find()) { // checks to see if what user typed is an item in inventory, drops it
+		if (dropPattern.matcher(input).find()) {
 			if(argumentMatcher.find()){
-				player.drop(s.substring(argumentMatcher.start()+1, s.length()));
+				player.drop(input.substring(argumentMatcher.start()+1, input.length()));
 				return;
 			}
 			else{
@@ -154,9 +168,9 @@ else{
 		// END DROP
 
 		//MOVE
-		if (movePattern.matcher(s).find()) {
+		if (movePattern.matcher(input).find()) {
 			if(argumentMatcher.find()){
-				String destination = s.substring(argumentMatcher.start()+1, s.length());
+				String destination = input.substring(argumentMatcher.start()+1, input.length());
 				for(Location l : player.currentLoc.getLinks()){
 					if(destination.equalsIgnoreCase(l.getName())){
 						player.move(l);

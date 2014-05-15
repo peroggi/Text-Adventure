@@ -28,7 +28,7 @@ public class World {
 	
 		//streams
 		// set starting location
-		Location streams = new Location("420streams", "You are at 420streams. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi});
+		Location streams = new Location("shitflix", "This is Shitflix. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi});
 
 		streams.discover();
 		player.currentLoc = streams;
