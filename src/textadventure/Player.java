@@ -3,13 +3,15 @@ import items.Item;
 
 import java.util.ArrayList;
 
-import locations.Location;
-import npc.Person;
-
 public class Player {
 	
 	ArrayList<Item> inventory = new ArrayList<Item>();
 	Location currentLoc;
+	
+	
+	public Location getCurrentLoc() {
+		return currentLoc;
+	}
 	
 	// inventory methods 
 	public void get(Item toAdd) {
@@ -32,7 +34,7 @@ public class Player {
 		Gui.setOutputText("Dropped " + toRemove.getName());
 	}
 	
-	boolean isInInventory(String s){ // looks for a thing named s in inventory
+	public boolean isInInventory(String s){ // looks for a thing named s in inventory
 		for(Thing i: inventory){
 			if(i.getName().equalsIgnoreCase(s)){
 				return true;
@@ -43,7 +45,7 @@ public class Player {
 	}
 
 	
-	Thing findInInventory(String s) { // returns object named s
+	public Thing findInInventory(String s) { // returns object named s
 		for (Thing i: inventory) {
 			if (i.getName().equalsIgnoreCase(s)) {
 			return i;
@@ -57,19 +59,20 @@ public class Player {
 		currentLoc.look(); 
 	}
 	
-	void talk(Person p) {
+	public void talk() {
 		// TODO
 	}
 	
-	void use(Item i) {
+	public void use(Item i) {
+		System.out.println("Using " + i.getName());
 		i.use();
 	}
 	
-	void useOn(Thing t) {
+	public void useOn(Thing t) {
 		// TODO
 	}
 	
-	void move(Location l) {
+	public void move(Location l) {
 		currentLoc = l;
 		l.look();
 		return;

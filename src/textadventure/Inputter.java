@@ -4,8 +4,6 @@ import items.Item;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import locations.Location;
-
 public class Inputter {
 
 	Player player;
@@ -90,10 +88,10 @@ public class Inputter {
 				catch(NullPointerException e){
 					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
 					return;					
-				}
-				System.out.println("Getting " + itemToGet.getName()); // print to console to test
-					player.get(itemToGet);
-					return;
+				}	
+			System.out.println("Trying to get " + itemToGet.getName()); // print to console to test
+			itemToGet.get();	
+			return;
 			}
 			else {
 				Gui.setOutputText("There's nothing like that to get");
@@ -116,7 +114,7 @@ public class Inputter {
 					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
 					return;
 				}
-				System.out.println("Using " + itemToUse.getName());
+				System.out.println("Trying to use " + itemToUse.getName());
 				player.use(itemToUse);
 				return;
 			}

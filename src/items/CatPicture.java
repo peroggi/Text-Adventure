@@ -6,7 +6,7 @@ public class CatPicture extends Item {
 	
 	public CatPicture() {
 		name = "cat picture";
-		desc = "It is a picture of a cat. The cat is doing a dance.";
+		desc = "It is a picture of a cat. The cat is doing a dance, and is holding what appears to be a cheeseburger.";
 		getable = true;
 	}
 	

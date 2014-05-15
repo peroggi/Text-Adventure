@@ -1,4 +1,5 @@
-package locations;
+package textadventure;
+
 import java.util.ArrayList;
 import java.util.List;
 

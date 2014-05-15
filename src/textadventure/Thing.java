@@ -1,7 +1,5 @@
 package textadventure;
 
-import locations.Location;
-
 public class Thing {
 	protected String name;
 	protected String desc;
@@ -31,6 +29,9 @@ public class Thing {
 		return getable;
 	}
 	
+	public void setGetable() {
+		getable = true;
+	}
 	public void talk () {
 		
 	}

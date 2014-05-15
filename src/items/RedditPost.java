@@ -1,8 +1,9 @@
 package items;
 
-import textadventure.Gui;
+import textadventure.*;
 
 public class RedditPost extends Item {
+	public boolean hasFlair = false;
 	
 	public RedditPost() {
 		name = "reddit post";
@@ -12,22 +13,26 @@ public class RedditPost extends Item {
 	
 	public void use() { // TODO shit that happens
 		
+		if (hasFlair && World.getPlayer().getCurrentLoc().equals(todayILearned)) {
+			System.out.println("reddit death");
+			//redditdeath(); // TODO redditdeath
+			return;
+		}
+		if (!hasFlair && World.getPlayer().getCurrentLoc().equals(todayILearned)) {
+			Gui.setOutputText("No one will believe this outrageous post unless it has a flair.");
+			return;
+		}
+		Gui.setOutputText("You can't post that here.");
+		return;
+	}
+	
+	// TODO fix other shit first
+	public void useOn() {
+		
 	}
 }
 /*
-var redditpostITEM = Item("reddit post", redditpost.desc);
-    redditpostITEM.use = function () {
-        if (this.flaired && currentloc == todayilearnedAREA) {
-            redditdeath();
-            return true;
-        }
-        if (!this.flaired && currentloc == todayilearnedAREA) {
-            writeOut("No one will believe this outrageous post unless it has a flair");
-            return false;
-        }
-        writeOut("You can't post that here");
-        return false;
-    };
+	// USEON TODO
     redditpostITEM.useon = function (user) {
         if (user == todayilearnedflairITEM) {
             writeOut("You stamp the post with your flair. People will now assume a trusted user composed this post.");
