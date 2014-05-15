@@ -1,13 +1,9 @@
 package textadventure;
 import items.Item;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-<<<<<<< HEAD
-=======
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
->>>>>>> FETCH_HEAD
 
 public class Inputter {
 
@@ -93,7 +89,7 @@ public class Inputter {
 				player.get(s.substring(argumentMatcher.start()+1, s.length()));
 				return;
 			}
-<<<<<<< HEAD
+
 			inputs.remove(0);
 			String nameItemRequested = TextAdventure.listToString(inputs);
 			Item itemToGet;
@@ -109,12 +105,8 @@ public class Inputter {
 			itemToGet.get();	
 			return;
 			}
-			else {
-				Gui.setOutputText("There's nothing like that to get");
-=======
-			else{
+else{
 				Gui.setOutputText("You can't pick up nothing, faggot.");
->>>>>>> FETCH_HEAD
 				return;
 			}
 		}

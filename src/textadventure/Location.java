@@ -1,8 +1,5 @@
 package textadventure;
-<<<<<<< HEAD:src/textadventure/Location.java
 
-=======
->>>>>>> FETCH_HEAD:src/textadventure/Location.java
 import java.util.ArrayList;
 import java.util.List;
 public class Location extends Thing{

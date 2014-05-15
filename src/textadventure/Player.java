@@ -2,12 +2,8 @@ package textadventure;
 import items.Item;
 
 import java.util.ArrayList;
-
-<<<<<<< HEAD
-=======
 import javax.swing.SwingUtilities;
 
->>>>>>> FETCH_HEAD
 public class Player {
 	
 	ArrayList<Item> inventory = new ArrayList<Item>();
@@ -97,11 +93,7 @@ public class Player {
 		} 
 	}
 	
-<<<<<<< HEAD
-	public void talk() {
-		// TODO
-=======
-	void talk(String talkTo) {
+public void talk(String talkTo) {
 		if(currentLoc.isInContents(talkTo)){
 			if(currentLoc.findInContents(talkTo).getClass().equals(Person.class)){
 				Inputter.currentConvo = new Conversation(talkTo);
@@ -110,7 +102,6 @@ public class Player {
 		else{
 			Gui.setOutputText("That person doesn't exist");
 		}
->>>>>>> FETCH_HEAD
 	}
 	
 	public void use(Item i) {

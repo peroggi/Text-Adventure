@@ -9,13 +9,10 @@ public class World {
 	
 	World() {
 		player = new Player();
-		
-<<<<<<< HEAD
-		// item instances
-=======
+
 		Person perogi = new Person("Perogi", "That is Perogi");
 		
->>>>>>> FETCH_HEAD
+
 		Joint joint = new Joint();
 		Dildo dildo = new Dildo();
 		RedditPost redditPost = new RedditPost();
@@ -28,16 +25,11 @@ public class World {
 		Lighter lighter = new Lighter();
 		TodayILearnedFlair todayILearnedFlair = new TodayILearnedFlair();
 		
-<<<<<<< HEAD
 	
 		//streams
 		// set starting location
-		Location streams = new Location("420streams", "You are at 420streams. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo});
-=======
-		CatPicture cp = new CatPicture();
-		
-		Location streams = new Location("shitflix", "This is shitflix.", new Thing[]{joint, dildo, cp, perogi});
->>>>>>> FETCH_HEAD
+		Location streams = new Location("420streams", "You are at 420streams. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi});
+
 		streams.discover();
 		player.currentLoc = streams;
 		

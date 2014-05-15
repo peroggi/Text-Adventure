@@ -13,6 +13,7 @@ public class Item extends Thing{
 	public void look() {
 		Gui.setOutputText("It's an item. " + this.getDesc());
 	}
+	// TODO change get items 
 	public void get(){
 		if (this.getable) {
 			System.out.println("Getting " + this.getName()); // print to console to test
