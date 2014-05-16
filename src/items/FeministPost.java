@@ -12,7 +12,7 @@ public class FeministPost extends Item {
 	
 	// TODO visibility
 	public void use() {
-		if (World.getPlayer().getCurrentLoc().equals(reichForums)) {
+		if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums")) {
 			Gui.setOutputText("While no one is looking, you discretely post the feminist message in a corner of the forums. It takes a while, but once the Reich members notice they flock around it and become infuriated.");
 			World.getPlayer().drop(this.name);
 			naziFlag.setGetable();

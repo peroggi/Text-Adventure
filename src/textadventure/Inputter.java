@@ -39,6 +39,7 @@ public class Inputter {
 		Pattern getPattern = Pattern.compile("^get(\\s|$)");
 		Pattern dropPattern = Pattern.compile("^drop(\\s|$)");
 		Pattern usePattern = Pattern.compile("^use(\\s|$)");
+		Pattern useOnPattern = Pattern.compile("^useon(\\s|$)"); // i think i got this right for use on?? // TODO use (space) on
 		Pattern movePattern = Pattern.compile("^move(\\s|$)");
 		Pattern talkPattern = Pattern.compile("^talk(\\s|$)");
 		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");//\\w+ means any amount of word characters(letter/number), $ means end of line
@@ -124,34 +125,19 @@ public class Inputter {
 				return;
 			}
 		}
-		/* OLD USE
-		if (inputs.get(0).equalsIgnoreCase("use")) {
-			inputs.remove(0);
-			String nameItemRequested = TextAdventure.listToString(inputs);
-			Item itemToUse;
-			System.out.println("Something named " + nameItemRequested + " is in inventory: " + player.isInInventory(nameItemRequested));
-			if (player.isInInventory(nameItemRequested)) {
-				try {
-					itemToUse = (Item) player.getFromInventory(nameItemRequested);
-				}
-				catch(NullPointerException e) {
-					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
-					return;
-				}
-				System.out.println("Trying to use " + itemToUse.getName());
-				player.use(itemToUse);
-				return;
-			}
-			else {
-				Gui.setOutputText("There's nothing like that to use.");
-				return;
-			}
-		}
-		*/
 		// END USE
 		
 		//USE ON TODO
-
+		if (useOnPattern.matcher(input).find()) {
+			if (argumentMatcher.find()) {
+				player.use(input.substring(argumentMatcher.start()+1, input.length()));
+				return;
+			}
+			else {
+				Gui.setOutputText("There's nothing like that to use with anything.");
+			}
+		}
+		// END USE ON
 
 		// DROP
 		if (dropPattern.matcher(input).find()) {

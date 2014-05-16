@@ -52,8 +52,22 @@ public class Player {
 		}
 	}
 
-	public void useOn(Thing t) {
-		// TODO implement using items on other items
+	public void useOn(String use, String useOn) {
+		// TODO make so this works both ways? flag on lighter and lighter on flag? have item check this. and useOnItem
+		if (isInInventory(use)) {
+			if (isInInventory(useOn)) {
+				Item useItem = (Item) getFromInventory(use);
+				Item useOnItem = (Item) getFromInventory(useOn);
+				System.out.println("Using " + useItem.getName() + " on " + useOnItem.getName());
+				useItem.useOn(useOnItem);
+			}
+			else {
+				Gui.setOutputText("You can't use that item on an item you don't have");
+			}
+		}
+		else {
+			Gui.setOutputText("You can't use something you don't have on another item.");
+		}
 	}
 
 	public void drop(String toRemove) {

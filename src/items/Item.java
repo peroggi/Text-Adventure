@@ -11,9 +11,7 @@ public class Item extends Thing{
 	public Item() {
 	getable = true;
 	}
-	
-
-	// TODO change get items 
+	 
 	public Boolean pickUp(){
 		if (this.getable) {
 			System.out.println("Get " + this.getName()); // print to console to test
@@ -27,11 +25,9 @@ public class Item extends Thing{
 	
 	public void use() {
 		Gui.setOutputText("That doesn't do anything.");
-		return;
 	}
 	
-	// TODO use on for Item
-	public void useOn() {
-		
+	public void useOn(Item i) {
+		Gui.setOutputText(this.getName() + " and " + i.getName() + " don't do anything when used together.");
 	}
 }
