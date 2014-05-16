@@ -16,16 +16,12 @@ public class NaziFlag extends Item {
 		super.setGetable();
 	}
 	
-	// TODO fix this. if not getable runs else, but if is fucked. tries World.getPlayer().pickUp(this.name); and loops
-	// to player and back
 	public Boolean pickUp() {
 		if (this.getable) {
 			if (World.getPlayer().isInInventory(this.name)) {
 				Gui.setOutputText("You already have that in your inventory, where are you going to put it?");
 				return false;
 			}
-			Gui.setOutputText("You get " + this.name);
-			World.getPlayer().pickUp(this.name);
 			return true;
 		}
 		else {

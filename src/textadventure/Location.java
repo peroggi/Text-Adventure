@@ -21,13 +21,16 @@ public class Location extends Thing{
 		StringBuilder txt = new StringBuilder(desc + "<br/>You can also see the following things:");
 		if(contents.isEmpty()){txt.append("Nothing.");}
 		else{
-			for(Thing t : contents){
-				txt.append(" " + t.getName()); // TODO make it look cleaner, add commas
+			txt.append(" " + contents.get(0).getName());
+			for(int i = 1; i<contents.size();i++){
+				txt.append(", " + contents.get(i).getName());
 			}
+			
 		}
 		txt.append("<br/>You also know of the following links from this location:");
-		for(Location l : links){
-			txt.append(" " + l.getName());
+		txt.append(" " + links.get(0).getName());
+		for(int i = 1; i<links.size();i++){
+			txt.append(", " + links.get(i).getName());
 		}
 		Gui.setOutputText(txt.toString());
 		

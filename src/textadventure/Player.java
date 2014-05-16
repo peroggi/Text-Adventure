@@ -29,7 +29,7 @@ public class Player {
 					inventory.add((Item) getting);
 					currentLoc.remove(getting);	
 					SwingUtilities.invokeLater(updateInventory);
-					Gui.setOutputText("Picked up " + getting.getName());
+					Gui.setOutputText("You get " + getting.getName());
 				}
 				else {
 					return;
@@ -91,7 +91,7 @@ public class Player {
 	}
 	
 	public void look(String toLook) {
-		if(!toLook.isEmpty()){//if argument was supplied
+		if(!toLook.isEmpty()){ //if argument was supplied
 			if(isInInventory(toLook)){
 				Gui.setOutputText(getFromInventory(toLook).getDesc());
 			}

@@ -23,7 +23,6 @@ public class Inputter {
 		this.inputText = inputText;
 	}
 
-	// method to parse input, call corresponding class method in player, return output string
 	public void checkInput(String input) {
 		if(currentConvo != null){
 			if(input.equalsIgnoreCase("cancel")){
