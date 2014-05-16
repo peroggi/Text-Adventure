@@ -34,8 +34,7 @@ public class NaziFlag extends Item {
 		Gui.setOutputText("It's a flag. What could you possibly use it for?");
 	}
 	
-	// TODO make items and locations visible without being a turd
-	// TODO make nazi flag and lighter work
+	// TODO what about lighter with flag??
 	public void useOn(Item i) {
 		if (World.getPlayer().isInInventory("lighter")) {
 			if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums")) {

@@ -15,7 +15,8 @@ public class FeministPost extends Item {
 		if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums")) {
 			Gui.setOutputText("While no one is looking, you discretely post the feminist message in a corner of the forums. It takes a while, but once the Reich members notice they flock around it and become infuriated.");
 			World.getPlayer().drop(this.name);
-			naziFlag.setGetable();
+			// TODO find way to modify item instances without being in player's inventory, from World or Location
+			naziFlag.setGetable(); 
 
 			return;
 		}

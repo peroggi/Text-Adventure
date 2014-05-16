@@ -39,26 +39,18 @@ public class Inputter {
 		Pattern getPattern = Pattern.compile("^get(\\s|$)");
 		Pattern dropPattern = Pattern.compile("^drop(\\s|$)");
 		Pattern usePattern = Pattern.compile("^use(\\s|$)");
-		Pattern useOnPattern = Pattern.compile("^useon(\\s|$)"); // i think i got this right for use on?? // TODO use (space) on
 		Pattern movePattern = Pattern.compile("^move(\\s|$)");
 		Pattern talkPattern = Pattern.compile("^talk(\\s|$)");
 		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");//\\w+ means any amount of word characters(letter/number), $ means end of line
+		Pattern twoArgumentPattern = Pattern.compile("\\s(\\w+|\\w+\\s\\w+)\\son\\s(\\w+|\\w+\\s\\w+)($|\\s)"); //makes UseOn work
 		Matcher argumentMatcher = argumentPattern.matcher(input);
-		Matcher trailingSpace = Pattern.compile("\\s$").matcher(input);
+		Matcher twoArgumentMatcher = twoArgumentPattern.matcher(input);
+		// not used?
+		//Matcher trailingSpace = Pattern.compile("\\s$").matcher(input);
 
-		Scanner scanner = new Scanner(input);
-
-		ArrayList<String> inputs = new ArrayList<String>();
-		// put words user typed into arraylist
-		while (scanner.hasNext()) {
-			inputs.add(scanner.next());
-		}
-		scanner.close();
-
-		//System.out.println(inputs.toString()); // print input to console for testing
+		
 		
 		// LOOK
-		
 		if (lookPattern.matcher(input).find()) { // just testing with look for now, one word input
 			if(argumentMatcher.find()){//checks if there are arguments (object to look at), only works for one word arguments right now
 				player.look(input.substring(argumentMatcher.start()+1, input.length()));//calls player.look with only the argument, not the verb(removes "look" from "look joint")
@@ -114,6 +106,23 @@ public class Inputter {
 		}
 		// END GET
 		
+		//USE ON
+		if (twoArgumentMatcher.find()) { // checks for two arguments so "use cat picture on joint" should call useOn?
+			System.out.println("found two args");
+			input = input.substring(twoArgumentMatcher.start()+1, input.length());
+			System.out.println(input); // joint on dildo
+			Pattern findOnPattern = Pattern.compile("\\son\\s");
+			Matcher findOnMatcher = findOnPattern.matcher(input);
+			findOnMatcher.find();
+			String firstArg = input.substring(0, findOnMatcher.start()); // item 1
+			String secondArg = input.substring(findOnMatcher.end(), input.length()); // item 2
+			System.out.println(firstArg);
+			System.out.println(secondArg);
+			player.useOn(firstArg, secondArg);
+			return;
+		}
+		// END USE ON
+		
 		//USE  
 		if (usePattern.matcher(input).find()) {
 			if (argumentMatcher.find()) {
@@ -127,17 +136,6 @@ public class Inputter {
 		}
 		// END USE
 		
-		//USE ON TODO
-		if (useOnPattern.matcher(input).find()) {
-			if (argumentMatcher.find()) {
-				player.use(input.substring(argumentMatcher.start()+1, input.length()));
-				return;
-			}
-			else {
-				Gui.setOutputText("There's nothing like that to use with anything.");
-			}
-		}
-		// END USE ON
 
 		// DROP
 		if (dropPattern.matcher(input).find()) {

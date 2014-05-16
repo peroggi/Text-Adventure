@@ -35,6 +35,7 @@ public class World {
 		
 		// reddit 
 		// TODO alternate descriptions for reddit death? either instantiate or have redditdeath set desc
+		//Location reddit = 
 		Location reddit = new Location("Reddit", "You are at Reddit. It is like 4chan used to be, but more pretentious. There are hipsters wandering in and out of edgy subreddits. The air is thick with a feeling of superiority.", new Thing[]{redditPost});
 		Location memes = new Location("Memes", "This is a subreddit about memes. A bunch of young adults gather around five year old memes that weren't even that funny originally. The young adults are laughing hysterically.", new Thing[]{});
 		Location todayILearned = new Location("Today I Learned", "This is the subreddit for Today I Learned. There are bulletins of unique stories pinned around the walls. People gather around these bulletins and arbitrarily remark on what the bulletin says about humanity and their faith in it.", new Thing[]{});
@@ -70,5 +71,6 @@ public class World {
 	public static Player getPlayer() {
 		return player;
 	}
-	
+
+	}
 }
