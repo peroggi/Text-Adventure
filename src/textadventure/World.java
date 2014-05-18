@@ -6,13 +6,14 @@ import items.*;
 public class World {
 	
 	protected static Player player;
-	
+	static Item[] items;
+	@SuppressWarnings("unused")
 	World() {
 		player = new Player();
 
 		Person perogi = new Person("Perogi", "That is Perogi");
 		
-
+		// create item instances
 		Joint joint = new Joint();
 		Dildo dildo = new Dildo();
 		RedditPost redditPost = new RedditPost();
@@ -25,6 +26,9 @@ public class World {
 		Lighter lighter = new Lighter();
 		TodayILearnedFlair todayILearnedFlair = new TodayILearnedFlair();
 		
+		//array holding them so they can be accessed by other classes without passing each item. see getItems() method below
+		
+		items = new Item[]{joint, dildo, redditPost, naziFlag, catPicture, catFlair, feministPost, feministUniform, key, lighter, todayILearnedFlair};
 	
 		//streams
 		// set starting location
@@ -71,4 +75,16 @@ public class World {
 		return player;
 	}
 
+	// allows other classes to access other items
+	public static Item[] getItems() {
+		return items;
+		
+	}
+	
+	public static void makeItemGetable(String itemName) {
+		for (Item i : World.getItems())
+			if (i.getName().equalsIgnoreCase("nazi flag")) {
+				i.setGetable();
+			}
+	}
 }

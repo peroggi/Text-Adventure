@@ -10,13 +10,12 @@ public class FeministPost extends Item {
 		getable = true;
 	}
 	
-	// TODO visibility
 	public void use() {
-		if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums")) {
+		if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums")) { // TODO find way to do this passing actual object instead of name? object isn't visible here
 			Gui.setOutputText("While no one is looking, you discretely post the feminist message in a corner of the forums. It takes a while, but once the Reich members notice they flock around it and become infuriated.");
 			World.getPlayer().drop(this.name);
-			// TODO find way to modify item instances without being in player's inventory, from World or Location
-			naziFlag.setGetable(); 
+			// TODO find way to do this passing actual object instead of name? object isn't visible here
+			World.makeItemGetable("nazi flag");
 
 			return;
 		}

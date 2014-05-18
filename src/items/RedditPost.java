@@ -13,12 +13,12 @@ public class RedditPost extends Item {
 	
 	public void use() { // TODO location visibility
 		
-		if (hasFlair && World.getPlayer().getCurrentLoc().equals(todayILearned)) {
+		if (hasFlair && World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("Today I Learned")) {
 			System.out.println("reddit death");
 			//redditdeath(); // TODO redditdeath event
 			return;
 		}
-		if (!hasFlair && World.getPlayer().getCurrentLoc().equals(todayILearned)) {
+		if (!hasFlair && World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("Today I Learned")) {
 			Gui.setOutputText("No one will believe this outrageous post unless it has a flair.");
 			return;
 		}

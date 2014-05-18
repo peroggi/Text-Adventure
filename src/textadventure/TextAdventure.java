@@ -6,6 +6,7 @@ import java.util.Random;
 public class TextAdventure {
 
 	static World world;
+
 	static Inputter inputter;
 	static Gui gui;
 	static int currentstage = 0;
