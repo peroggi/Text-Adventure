@@ -1,7 +1,5 @@
 package items;
 
-import textadventure.Gui;
-
 public class FeministUniform extends Item {
 	
 	public FeministUniform() {

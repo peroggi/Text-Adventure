@@ -1,7 +1,5 @@
 package items;
 
-import textadventure.Gui;
-
 public class Key extends Item {
 	
 	public Key() {

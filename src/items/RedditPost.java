@@ -1,7 +1,5 @@
 package items;
 
-import javax.swing.SwingUtilities;
-
 import textadventure.*;
 
 public class RedditPost extends Item {
