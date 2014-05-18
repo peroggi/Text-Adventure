@@ -29,12 +29,10 @@ public class World {
 		//array holding them so they can be accessed by other classes without passing each item. see getItems() method below
 		items = new Item[]{joint, dildo, redditPost, naziFlag, catPicture, catFlair, feministPost, feministUniform, key, lighter, todayILearnedFlair};
 	
-		//streams
-		// set starting location
-		Location streams = new Location("shitflix", "This is Shitflix. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi});
-
-		streams.discover();
-		player.currentLoc = streams;
+		// starting location
+		Location shitflix = new Location("shitflix", "This is Shitflix. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi});
+		shitflix.discover();
+		player.currentLoc = shitflix;
 		
 		// reddit 
 		// TODO alternate descriptions for reddit death? either instantiate or have redditdeath set desc 
@@ -62,12 +60,12 @@ public class World {
 		// extra testing location
 		Location test = new Location("Test", "There's a lot of random shit in here.", new Thing[]{catPicture, naziFlag, catFlair, feministPost, feministUniform, joint, dildo, key, lighter, redditPost, todayILearnedFlair});
 		test.discover();
-		streams.joinLoc(new Location[]{test});
+		shitflix.joinLoc(new Location[]{test});
+		
 
-		// todayILearned for testing redditPost item
-		todayILearned.discover();
-		streams.joinLoc(new Location[]{todayILearned});
-
+		// join locations
+		
+		 // TODO join all locations that need to be joined. Should they all be joined at start then discovered as story progresses?
 	}
 	
 	public static Player getPlayer() {

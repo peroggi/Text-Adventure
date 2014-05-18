@@ -1,10 +1,7 @@
 package items;
 
-import javax.swing.SwingUtilities;
-
 import textadventure.Gui;
 import textadventure.Thing;
-import textadventure.World;
 
 public class Item extends Thing{
 	
