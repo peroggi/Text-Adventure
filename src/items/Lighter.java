@@ -1,5 +1,7 @@
 package items;
 
+import javax.swing.SwingUtilities;
+
 import textadventure.Gui;
 import textadventure.World;
 
@@ -13,12 +15,13 @@ public class Lighter extends Item {
 	
 	@Override
 	public void useOn(Item i) {
-		if (i.getName().equalsIgnoreCase("nazi flag")) {
+		if (World.getPlayer().isInInventory(i.getName()) && i.getName().equalsIgnoreCase("nazi flag")) {
 			Item a = (Item) World.getPlayer().getFromInventory("nazi flag");
-			a.useOn(this);
-			}
+			a.useOn(this);	
+		}
 		else {
 			Gui.setOutputText("Those two items don't go together");
 		}
 	}
+
 }

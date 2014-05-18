@@ -35,11 +35,12 @@ public class NaziFlag extends Item {
 	}
 	
 	public void useOn(Item i) {
-		if (World.getPlayer().isInInventory("lighter")) {
-			if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums")) {
+		if (World.getPlayer().isInInventory(i.getName()) && i.getName().equalsIgnoreCase("lighter")) {
+			if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums") || /*This one for testing*/ World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test")) {
 				if (World.getPlayer().isInInventory("feminist uniform")) {
 					Gui.setOutputText("You quickly light the flag and run off, enraged Nazis are hot on your tail. As soon as you get back into the internet backbone, you ditch your disguise. The Nazis run right past you and into blogger.");
-					World.getPlayer().drop("feminist uniform");
+					World.getPlayer().removeConsumable("feminist uniform");
+					World.getPlayer().removeConsumable("nazi flag");
 					// sheSaidDeath(); // TODO she said death event
 					System.out.println("She said death");
 					return;

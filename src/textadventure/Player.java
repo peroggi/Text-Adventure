@@ -51,7 +51,7 @@ public class Player {
 			Gui.setOutputText("You can't use something you don't have.");
 		}
 	}
-
+	
 	public void useOn(String use, String useOn) {
 		// TODO make so this works both ways? flag on lighter and lighter on flag? have item check this. and useOnItem
 		if (isInInventory(use)) {
@@ -83,6 +83,17 @@ public class Player {
 		}
 	}
 	
+	// allows for removing an item from inventory as part of another item's use action, without user input
+	public void removeConsumable(String toUse) {
+		if (isInInventory(toUse)) {
+			Item using = (Item) getFromInventory(toUse);
+			inventory.remove(using);
+			SwingUtilities.invokeLater(updateInventory);
+		}
+		else {
+			System.out.println("item not in inventory");
+		}
+	}
 	public boolean isInInventory(String s){ // looks for a thing named s in inventory
 		for(Thing i: inventory){
 			if(i.getName().equalsIgnoreCase(s)){

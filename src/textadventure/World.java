@@ -27,7 +27,6 @@ public class World {
 		TodayILearnedFlair todayILearnedFlair = new TodayILearnedFlair();
 		
 		//array holding them so they can be accessed by other classes without passing each item. see getItems() method below
-		
 		items = new Item[]{joint, dildo, redditPost, naziFlag, catPicture, catFlair, feministPost, feministUniform, key, lighter, todayILearnedFlair};
 	
 		//streams
