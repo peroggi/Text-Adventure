@@ -7,18 +7,17 @@ public class Location extends Thing{
 	protected List<Location> links = new ArrayList<Location>();
 	protected List<Thing> contents = new ArrayList<Thing>();
 	protected boolean discovered = false;
-	
 	public Location(String name, String desc, Thing[] contents){
 		this.setName(name);
 		this.setDesc(desc);
+		World.undiscoveredLocs.add(this);
 		for(Thing o : contents){
 			this.contents.add(o);
 		}
-		System.out.println(name + " location created."); // for testing
 	}
 	
 	public void look() {
-		StringBuilder txt = new StringBuilder(desc + "<br/>You can also see the following things:");
+		StringBuilder txt = new StringBuilder(desc + "<br/><br/>You can also see the following things:");
 		if(contents.isEmpty()){txt.append("Nothing.");}
 		else{
 			txt.append(" " + contents.get(0).getName());
@@ -27,12 +26,13 @@ public class Location extends Thing{
 			}
 			
 		}
-		txt.append("<br/>You also know of the following links from this location:");
-		txt.append(" " + links.get(0).getName());
-		for(int i = 1; i<links.size();i++){
-			txt.append(", " + links.get(i).getName());
+		txt.append("<br/><br/>You also know of the following links from this location:");
+		for(Location l : links){
+			if(l.isDiscovered()){
+				txt.append(", " + l.getName());
+			}
 		}
-		Gui.setOutputText(txt.toString());
+		Gui.setOutputText(txt.toString().replaceFirst(":, ", ": "));
 		
 	}
 	
@@ -66,6 +66,7 @@ public class Location extends Thing{
 	
 	public void discover(){
 		this.discovered = true;
+		World.undiscoveredLocs.remove(this);
 	}
 
 	public boolean isDiscovered() {
@@ -92,7 +93,7 @@ public class Location extends Thing{
 	
 	public void linkLocation(Location loc){
 		this.links.add(loc);
-		}
+	}
 	
 
 }

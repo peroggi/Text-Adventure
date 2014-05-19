@@ -1,17 +1,21 @@
 package textadventure;
 
+import java.util.ArrayList;
+
 import items.*;
 
 
 public class World {
 	
 	protected static Player player;
+	static ArrayList<Location> undiscoveredLocs = new ArrayList<Location>();
 	static Item[] items;
 	@SuppressWarnings("unused")
 	World() {
 		player = new Player();
 
 		Person perogi = new Person("Perogi", "That is Perogi");
+		Person toast = new Person("Toast", "That is Toast");
 		
 		// create item instances
 		Joint joint = new Joint();
@@ -30,7 +34,7 @@ public class World {
 		items = new Item[]{joint, dildo, redditPost, naziFlag, catPicture, catFlair, feministPost, feministUniform, key, lighter, todayILearnedFlair};
 	
 		// starting location
-		Location shitflix = new Location("shitflix", "This is Shitflix. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi});
+		Location shitflix = new Location("shitflix", "This is Shitflix. It is a black room with television screens embedded in the wall at seemingly random places. There are empty bottles of alcohol and drug paraphernalia scattered about.", new Thing[]{joint, dildo, perogi, toast});
 		shitflix.discover();
 		player.currentLoc = shitflix;
 		
@@ -44,6 +48,7 @@ public class World {
 		
 		// internet backbone
 		Location internetBackbone = new Location("Internet Backbone", "You are at the Internet Backbone. This area connects many subnetworks together and acts as an internet hub. There are people hurriedly rushing about, this is a busy place.", new Thing[]{});
+		internetBackbone.discover();
 		
 		// tor
 		Location torGate = new Location("Tor Gate", "This is the Tor Gate. It is the entrance to the shadowy Tor Network. It is a network known for anonymity, illegal services, and childporn. In short: it is the ultimate internet blackmarket.", new Thing[]{});
@@ -64,7 +69,10 @@ public class World {
 		
 
 		// join locations
-		
+		internetBackbone.joinLoc(new Location[]{shitflix, reddit, torGate, blogger, reichForums});
+		blogger.joinLoc(new Location[]{sheSaid, sheSaidArchive});
+		reddit.joinLoc(new Location[]{memes, todayILearned, cats, nsaSubreddit});
+		torGate.joinLoc(new Location[]{silkRoad});
 		 // TODO join all locations that need to be joined. Should they all be joined at start then discovered as story progresses?
 	}
 	

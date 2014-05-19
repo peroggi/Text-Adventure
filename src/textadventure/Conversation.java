@@ -42,12 +42,23 @@ public class Conversation {
 		NodeList topicList = talkee.getChildNodes();
 		for(int i = 5; i<topicList.getLength(); i+=2){
 			if(topicList.item(i).getNodeName().equalsIgnoreCase(topic)){
-				String output = topicList.item(i).getFirstChild().getNodeValue();
+				Node topicNode = topicList.item(i);
+				String output = topicNode.getFirstChild().getNodeValue();
+				if(topicNode.hasAttributes()){
+					String discoverLoc = topicNode.getAttributes().item(0).getNodeValue();
+					for(Location l : World.undiscoveredLocs){
+						if(discoverLoc.equalsIgnoreCase(l.getName())){
+							l.discover();
+							output = output + "<br/><br/>You have discovered a new link! You can now travel to " + l.getName();
+							break;
+						}
+					}
+				}
 				Gui.setOutputText(buildDialogue(output));
 				return;
 			}
 		}
-		Gui.setOutputText(topicList.item(INVALID).getFirstChild().getNodeValue());
+		Gui.setOutputText(buildDialogue(topicList.item(INVALID).getFirstChild().getNodeValue()));
 		
 	}
 	

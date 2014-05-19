@@ -9,7 +9,7 @@ public class Inputter {
 	private String inputText;
 
 	Inputter() {
-		player = TextAdventure.world.player; //aliasing!
+		player = World.player;
 	}
 
 	public String getInputText() {
@@ -32,25 +32,23 @@ public class Inputter {
 			return;
 		}
 		System.out.println(input);
-		Pattern lookPattern = Pattern.compile("^look(\\s|$)");//^indicates start of line, \s means a space, the first \ escapes the second \
+		Pattern lookPattern = Pattern.compile("^look(\\s|$)");
 		Pattern getPattern = Pattern.compile("^get(\\s|$)");
 		Pattern dropPattern = Pattern.compile("^drop(\\s|$)");
 		Pattern usePattern = Pattern.compile("^use(\\s|$)");
 		Pattern movePattern = Pattern.compile("^move(\\s|$)");
 		Pattern talkPattern = Pattern.compile("^talk(\\s|$)");
-		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");//\\w+ means any amount of word characters(letter/number), $ means end of line
+		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");
 		Pattern twoArgumentPattern = Pattern.compile("\\s(\\w+|\\w+\\s\\w+)\\son\\s(\\w+|\\w+\\s\\w+)($|\\s)"); //makes UseOn work
 		Matcher argumentMatcher = argumentPattern.matcher(input);
 		Matcher twoArgumentMatcher = twoArgumentPattern.matcher(input);
-		// not used?
-		//Matcher trailingSpace = Pattern.compile("\\s$").matcher(input);
 
 		
 		
 		// LOOK
-		if (lookPattern.matcher(input).find()) { // just testing with look for now, one word input
-			if(argumentMatcher.find()){//checks if there are arguments (object to look at), only works for one word arguments right now
-				player.look(input.substring(argumentMatcher.start()+1, input.length()));//calls player.look with only the argument, not the verb(removes "look" from "look joint")
+		if (lookPattern.matcher(input).find()) {
+			if(argumentMatcher.find()){
+				player.look(input.substring(argumentMatcher.start()+1, input.length()));
 			}
 			else{
 				player.look("");	
@@ -71,31 +69,12 @@ public class Inputter {
 		}
 
 		// GET/PICK UP
-		if (getPattern.matcher(input).find()) { // checks to see if what user typed is an item in location, gets it
+		if (getPattern.matcher(input).find()) {
 			if(argumentMatcher.find()){
 				System.out.println("found argument");
 				player.pickUp(input.substring(argumentMatcher.start()+1, input.length()));
 				return;
 			}
-			
-			// It looks like this is no longer needed
-			/*
-			inputs.remove(0);
-			String nameItemRequested = TextAdventure.listToString(inputs);
-			Item itemToGet;
-			if (player.currentLoc.isInContents(nameItemRequested)) {
-				try{
-					itemToGet = (Item) player.currentLoc.findInContents(nameItemRequested); // returns object matching string from location
-				}
-				catch(NullPointerException e){
-					System.out.println("NullPointerException:" + e.getCause() + e.getStackTrace());
-					return;					
-				}	
-			itemToGet.pickUp();	
-			return;
-			}
-			
-			*/
 			else{
 				Gui.setOutputText("You can't pick up nothing, faggot.");
 				return;
@@ -105,16 +84,12 @@ public class Inputter {
 		
 		//USE ON
 		if (twoArgumentMatcher.find()) { // checks for two arguments so "use cat picture on joint" should call useOn?
-			System.out.println("found two args");
 			input = input.substring(twoArgumentMatcher.start()+1, input.length());
-			System.out.println(input); // joint on dildo
 			Pattern findOnPattern = Pattern.compile("\\son\\s");
 			Matcher findOnMatcher = findOnPattern.matcher(input);
 			findOnMatcher.find();
 			String firstArg = input.substring(0, findOnMatcher.start()); // item 1
 			String secondArg = input.substring(findOnMatcher.end(), input.length()); // item 2
-			System.out.println(firstArg);
-			System.out.println(secondArg);
 			player.useOn(firstArg, secondArg);
 			return;
 		}
@@ -152,7 +127,7 @@ public class Inputter {
 			if(argumentMatcher.find()){
 				String destination = input.substring(argumentMatcher.start()+1, input.length());
 				for(Location l : player.currentLoc.getLinks()){
-					if(destination.equalsIgnoreCase(l.getName())){
+					if(destination.equalsIgnoreCase(l.getName())&& l.isDiscovered()){
 						player.move(l);
 						return;
 					}
