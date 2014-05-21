@@ -24,8 +24,9 @@ public class Conversation {
 				break;
 			}
 		}
+		DialogueBuilder dialogueBuilder = new DialogueBuilder(talkee.getNodeName());
 		String output = talkee.getChildNodes().item(GREETING).getFirstChild().getNodeValue();
-		Gui.setOutputText(buildDialogue(output));
+		Gui.setOutputText(dialogueBuilder.finalizeDialogue(output));
 	}
 	
 	static void loadDialogue(){
@@ -38,6 +39,7 @@ public class Conversation {
 	}
 	
 	void talk(String topic){
+		DialogueBuilder dialogueBuilder = new DialogueBuilder(talkee.getNodeName());
 		topic = topic.replaceAll("\\s", "");
 		NodeList topicList = talkee.getChildNodes();
 		for(int i = 5; i<topicList.getLength(); i+=2){
@@ -45,31 +47,55 @@ public class Conversation {
 				Node topicNode = topicList.item(i);
 				String output = topicNode.getFirstChild().getNodeValue();
 				if(topicNode.hasAttributes()){
-					String discoverLoc = topicNode.getAttributes().item(0).getNodeValue();
-					for(Location l : World.undiscoveredLocs){
-						if(discoverLoc.equalsIgnoreCase(l.getName())){
-							l.discover();
-							output = output + "<br/><br/>You have discovered a new link! You can now travel to " + l.getName();
-							break;
-						}
-					}
+					attributeHandler(topicNode, dialogueBuilder);
 				}
-				Gui.setOutputText(buildDialogue(output));
+				Gui.setOutputText(dialogueBuilder.finalizeDialogue(output));
 				return;
 			}
 		}
-		Gui.setOutputText(buildDialogue(topicList.item(INVALID).getFirstChild().getNodeValue()));
+		Gui.setOutputText(dialogueBuilder.finalizeDialogue(topicList.item(INVALID).getFirstChild().getNodeValue()));
 		
 	}
 	
-	String buildDialogue(String dialogue){
-		dialogue = dialogue.replaceAll("\\s@", " <em>");
-		dialogue = dialogue.replaceAll("/@", "</em>");
-		StringBuilder finalDialogue = new StringBuilder(dialogue);
-		if(!talkee.getNodeName().equalsIgnoreCase("toast")){
-			finalDialogue.insert(0, talkee.getNodeName() + " says:<br/>");
+	private void attributeHandler(Node node, DialogueBuilder dialogueBuilder){
+		if(!(node.getAttributes().getNamedItem("link")==null)){
+			String discoverLoc = node.getAttributes().getNamedItem("link").getNodeValue();
+			for(Location l : World.undiscoveredLocs){
+				if(discoverLoc.equalsIgnoreCase(l.getName())){
+					l.discover();
+					dialogueBuilder.setEventText(String.format("<br/><br/><strong>You have discovered a new link! You can now travel to %s</strong> ", l.getName()));
+					break;
+				}
+			}
 		}
-		finalDialogue.append("<br/><br/>Type something to ask " + talkee.getNodeName() + " about, or type cancel to stop talking.");
-		return finalDialogue.toString();
+	}
+	
+	private class DialogueBuilder{
+		String sayer;
+		String says;
+		String ask;
+		String eventText = "";
+		
+		DialogueBuilder(String sayer){
+			this.sayer = sayer;
+			says = String.format("%s says:<br/>", sayer);
+			ask = String.format("<br/><br/>Type something to ask %s about, or type cancel to stop talking.", sayer);
+		}
+		void setEventText(String txt){
+			eventText = txt;
+		}
+		String finalizeDialogue(String dialogue){
+			dialogue = dialogue.replaceAll("\\s@", " <em>");
+			dialogue = dialogue.replaceAll("/@", "</em>");
+			StringBuilder finalDialogue = new StringBuilder(dialogue);
+			if(!talkee.getNodeName().equalsIgnoreCase("toast")){
+				finalDialogue.insert(0, says);
+			}
+			finalDialogue.append(ask);
+			if(!eventText.isEmpty()){
+				finalDialogue.append(eventText);
+			}
+			return finalDialogue.toString();
+		}
 	}
 }
