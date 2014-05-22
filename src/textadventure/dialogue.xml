@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <dialogue>
-	<perogi>
+	<Perogi>
 		<greeting>Yes, hi. Welcome to @shitflix/@. Things are a little bare right now because everyone got @kidnapped/@ by the @NSA/@.</greeting>
 		<invalid>I have no strong feelings on that subject.</invalid>
 		<nsa>They are the bad guys. They arrested a bunch of us for doing illegal things. Only me and toast were @not kidnapped/@.</nsa>
@@ -12,9 +12,61 @@
 		<kidnapped display="qs1">Yeah the NSA was spying on us and eventually got most of the 420streamers arrested. You should go find them, you'd probably want a @guide/@ though.</kidnapped>
 		<guide display="once">Me? No I'm not going to be your guide. I made this game so that really wouldn't be fair if I just told you everything, would it? Just go find Howlie, he'll probably be your guide. He's imprisoned somewhere on the internet, in @Reddit/@ I think. Just go to Reddit and try asking people about the NSA or howlie.</guide>
 		<reddit link="reddit" display="once">Yes Reddit, it's this awful place on the internet that I hate. Oh you mean how do you get there? Oh that's right, you need to know the appropriate links to get places. Here's the link to Reddit. From here go to the internet backbone, and from there you can get to Reddit. Now please leave, I am very busy drinking and watching television.</reddit>
-	</perogi>
-	<toast>
-		<greeting>Toast holds up a picture of a cat. The cat is waving.</greeting>
-		<invalid>Toast holds up a picture of a cat. The cat is confused.</invalid>
-	</toast>
+	</Perogi>
+	<Toast>
+		<greeting>Toast shuffles through the pile of pictures and holds up a picture of a cat. The cat is waving.</greeting>
+		<invalid>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat looks confused.</invalid>
+		<perogi>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat seems slightly discontent.</perogi>
+		<toast>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat is sad.</toast>
+		<nsa>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat is afraid.</nsa>
+		<shitflix>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat is smiling.</shitflix>
+		<howlie>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat is looking around as if searching for something missing.</howlie>
+		<reddit>Toast shuffles through the pile of cat pictures and holds up a picture of a cat. The cat is happy.</reddit>
+		<cats link="cats" display="once">Toast shuffles through the pile of cat pictures and holds up a picture. On the picture is a link to a subreddit about cats.</cats>
+		
+	</Toast>
+	<Howlie>
+		<greeting>o hey. How'd you get in here? dey told me I'd have this place to myself to work on mah @drawings/@.</greeting>
+		<invalid>Huh? idk what you're talking about.</invalid>
+		<drawings>Yeah some guys in suits told me they wanted to hire me to do mah furry drawings :3 so dey brought me here and I just been drawin.</drawings>
+		<nsa>The NSA? wat. Are you sure? dey said dey were gonna pay me! But you're saying they @kidnapped/@ me?</nsa>
+		<kidnapped checkpoint="1">Everyone else has been kidnapped? O gawd they must have tricked me! Mmmmkay imma go back to 420streams then, meet yah back there!</kidnapped>	
+	</Howlie>
+	<AvgRedditor>
+		<greeting>Hey, man. Welcome to @Reddit/@. This is where people swap interesting life stories and ideas, it's like, progressive, man. Check out some cool @subreddits/@ while you're here.</greeting>
+		<invalid>There isn't a subreddit about that topic, so I don't know anything about it.</invalid>
+		<reddit>That's this place, dude. Here people like, interact with each other and figure out social issues, you know? People also make lots of funny and witty @jokes/@ and post them in @subreddits/@.</reddit>
+		<subreddits link="todayILearned" display="once">"A subreddit is like, about a specific topic. My favorite is todayilearned. It has like, cool stories about people learning in their daily lives, you know? Everybody should post there and like, learn stuff everyday, man. Here, I'll give you the link.</subreddits>
+		<nsa>Those guys are like, all backwards man! They can't just like, spy on their own citizens. Liberty, man!</nsa>
+		<jokes link="memes" display="once">Yeah really funny, witty jokes, man. We call them 'memes' and they're really cool. Let me give you the link to the memes subreddit, dude. You'll thank me.</jokes>	
+	</AvgRedditor>
+	<Philtard>
+		<greeting>Hello! I spend all my free time here because distant relationships with people with shared interests feels fulfilling. Did you know nursing homes in Germany have fake bus stops?</greeting>
+		<invalid>I don't know what you're talking about, but maybe today I will learn it!</invalid>
+		<nsa>The NSA sucks man, they made me lose my faith in humanity. Did you know that we use the abbreviation X-mas because X is greek for Christ?</nsa>
+		<howlie>Howlie? He sounds like a furry, they make me lose my faith in humanity. If he's a furry I'd check the @Cats/@ subreddit. Did you know flight attendants don't get paid their full salary until the plane doors close?</howlie>
+		<cats>If there are dirty furries on Reddit, that's where they'd be. I don't have a link for you though, try asking someone who loves cats. Did you know that female koalas have lesbian sex?</cats>	
+	</Philtard>
+	<CatLady>
+		<greeting>Hiiiii there! Did you come here cause you liek cats? :3 omg I love @cats/@.</greeting>
+		<invalid>Um! What does that mean? XD</invalid>
+		<cats>eeeeee! Aren't cats the best? I could just look at them ALL DAY LOL! I really wish I had a flair for this subreddit, so more people could see my cat pictures :3</cats>
+		<nsa>Oh yeah I heard about them, they did something bad right?</nsa>
+		<howlie>ooooo howlie! I seen him here before :) he's nice. I saw him vanish into some weird subreddit a while ago, dunno what it was called, sawwy :(</howlie>	
+	</CatLady>
+	<OldMan>
+		<greeting>What do you want? Stupid @Redditor/@ ass-hats bothering me, hrgh.</greeting>
+		<invalid>The fuck you talkin' about?</invalid>
+		<redditor>Bunch of idiots if you ask me, hrk. Look at 'em laughing at all this stupid shit. These aren't even @memes/@, they're shitty image macros at best. I'd like to show 'em something @really funny/@.</redditor>
+		<memes>Back in my day the internet had real memes. Inside jokes that you had to be a part of the culture to get. This is just fucking shitty jokes pasted on top of images of dumb shit, grgh. Idiots.</memes>
+		<reallyfunny>Yeah, I wanna fuck with these internet-wannabe faggots. If you can figure out a prank to pull on these meme-gawking retards, then I'll try and help you out with whatever you got going on.</reallyfunny>
+		<nsa>Meh, anyone surprised by Snowden's leaks is an idiot. It's not much of a challenge to figure out the NSA, and all intelligence agencies, gather big data. Knowledge is power after all. If you're looking for them on Reddit though I might be able to help, you'll have to do something @really funny/@ for me first though.</nsa>
+		<howlie>Whossat? One of your friends? Well I don't really care, I'm busy grumbling, hrk, about these Reddit faggots.</howlie>	
+	</OldMan>
+	<TorGuard>
+		<greeting>Halt, you do not possess the correct vegetable to access the Tor Network. Please move along, internetter.</greeting>
+		<invalid>I will not talk about that.</invalid>
+		<nsa>The NSA has no power here.</nsa>
+		<tor>Tor is a network in the deep-web. It is only for those of a deviant and discerning taste.</tor>
+	</TorGuard>
 </dialogue>

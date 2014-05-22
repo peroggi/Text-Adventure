@@ -18,6 +18,7 @@ public class Conversation {
 	static final int INVALID = 3;
 	
 	Conversation(String person){
+		person = person.replaceAll("\\s", "");
 		for(int i=0; i<people.getLength(); i++){
 			if(people.item(i).getNodeName().equalsIgnoreCase(person)){
 				this.talkee = people.item(i);
@@ -71,13 +72,11 @@ public class Conversation {
 	}
 	
 	private class DialogueBuilder{
-		String sayer;
 		String says;
 		String ask;
 		String eventText = "";
 		
 		DialogueBuilder(String sayer){
-			this.sayer = sayer;
 			says = String.format("%s says:<br/>", sayer);
 			ask = String.format("<br/><br/>Type something to ask %s about, or type cancel to stop talking.", sayer);
 		}

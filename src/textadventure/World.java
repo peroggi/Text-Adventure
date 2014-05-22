@@ -16,6 +16,11 @@ public class World {
 
 		Person perogi = new Person("Perogi", "That is Perogi");
 		Person toast = new Person("Toast", "That is Toast");
+		Person howlie = new Person("Howlie", "");
+		Person avgRedditor = new Person("Avg Redditor", "");
+		Person philtard = new Person("Philtard", "");
+		Person catLady = new Person("Cat lady", "");
+		Person oldMan = new Person("Old Man", "");
 		
 		// create item instances
 		Joint joint = new Joint();
@@ -29,7 +34,7 @@ public class World {
 		Key key = new Key();
 		Lighter lighter = new Lighter();
 		TodayILearnedFlair todayILearnedFlair = new TodayILearnedFlair();
-		
+
 		//array holding them so they can be accessed by other classes without passing each item. see getItems() method below
 		items = new Item[]{joint, dildo, redditPost, naziFlag, catPicture, catFlair, feministPost, feministUniform, key, lighter, todayILearnedFlair};
 	
@@ -40,11 +45,11 @@ public class World {
 		
 		// reddit 
 		// TODO alternate descriptions for reddit death? either instantiate or have redditdeath set desc 
-		Location reddit = new Location("Reddit", "You are at Reddit. It is like 4chan used to be, but more pretentious. There are hipsters wandering in and out of edgy subreddits. The air is thick with a feeling of superiority.", new Thing[]{redditPost});
-		Location memes = new Location("Memes", "This is a subreddit about memes. A bunch of young adults gather around five year old memes that weren't even that funny originally. The young adults are laughing hysterically.", new Thing[]{});
-		Location todayILearned = new Location("Today I Learned", "This is the subreddit for Today I Learned. There are bulletins of unique stories pinned around the walls. People gather around these bulletins and arbitrarily remark on what the bulletin says about humanity and their faith in it.", new Thing[]{});
-		Location cats = new Location("Cats", "This is a subreddit for cat pictures. There are lots of pictures of cats. Women between 25 and 35 are wandering around screaming, laughing, and awww'ing at pictures of cats.", new Thing[]{catPicture});
-		Location nsaSubreddit = new Location("NSA Subreddit", "This is a secret NSA Subreddit. It is a dismal, gray place filled with cubicles. The only ambience is provided by an old, sluggish ceiling fan slowly spinning around.", new Thing[]{lighter});
+		Location reddit = new Location("Reddit", "You are at Reddit. It is like 4chan used to be, but more pretentious. There are hipsters wandering in and out of edgy subreddits. The air is thick with a feeling of superiority.", new Thing[]{redditPost, avgRedditor});
+		Location memes = new Location("Memes", "This is a subreddit about memes. A bunch of young adults gather around five year old memes that weren't even that funny originally. The young adults are laughing hysterically.", new Thing[]{oldMan});
+		Location todayILearned = new Location("TodayILearned", "This is the subreddit for Today I Learned. There are bulletins of unique stories pinned around the walls. People gather around these bulletins and arbitrarily remark on what the bulletin says about humanity and their faith in it.", new Thing[]{philtard});
+		Location cats = new Location("Cats", "This is a subreddit for cat pictures. There are lots of pictures of cats. Women between 25 and 35 are wandering around screaming, laughing, and awww'ing at pictures of cats.", new Thing[]{catPicture,catLady});
+		Location nsaSubreddit = new Location("NSA Subreddit", "This is a secret NSA Subreddit. It is a dismal, gray place filled with cubicles. The only ambience is provided by an old, sluggish ceiling fan slowly spinning around.", new Thing[]{lighter,howlie});
 		
 		// internet backbone
 		Location internetBackbone = new Location("Internet Backbone", "You are at the Internet Backbone. This area connects many subnetworks together and acts as an internet hub. There are people hurriedly rushing about, this is a busy place.", new Thing[]{});

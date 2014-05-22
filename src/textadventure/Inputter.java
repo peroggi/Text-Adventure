@@ -58,6 +58,7 @@ public class Inputter {
 		}
 		// END LOOK
 		
+		//TALK
 		if(talkPattern.matcher(input).find()){
 			if(argumentMatcher.find()){
 				player.talk(input.substring(argumentMatcher.start()+1, input.length()));
