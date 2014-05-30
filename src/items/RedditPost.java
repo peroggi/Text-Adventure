@@ -13,12 +13,12 @@ public class RedditPost extends Item {
 	
 	public void use() {
 		
-		if (hasFlair && (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("Today I Learned") || World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test"))) {
+		if (hasFlair && (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("TodayILearned") || World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test"))) {
 			System.out.println("reddit death");
 			//redditdeath(); // TODO redditdeath event
 			return;
 		}
-		if (!hasFlair && (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("Today I Learned") || World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test"))) {
+		if (!hasFlair && (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("TodayILearned") || World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test"))) {
 			Gui.setOutputText("No one will believe this outrageous post unless it has a flair.");
 			return;
 		}
