@@ -59,7 +59,7 @@ public class Conversation {
 	}
 	
 	private void attributeHandler(Node node, DialogueBuilder dialogueBuilder){
-		if(!(node.getAttributes().getNamedItem("link")==null)){
+		if(node.getAttributes().getNamedItem("link")!=null){
 			String discoverLoc = node.getAttributes().getNamedItem("link").getNodeValue();
 			for(Location l : World.undiscoveredLocs){
 				if(discoverLoc.equalsIgnoreCase(l.getName())){
@@ -67,6 +67,12 @@ public class Conversation {
 					dialogueBuilder.setEventText(String.format("<br/><br/><strong>You have discovered a new link! You can now travel to %s</strong> ", l.getName()));
 					break;
 				}
+			}
+		}
+		if(node.getAttributes().getNamedItem("display")!=null){
+			String display = node.getAttributes().getNamedItem("display").getNodeValue();
+			if(display.equals("once")){
+				node.getFirstChild().setNodeValue(talkee.getChildNodes().item(INVALID).getFirstChild().getNodeValue());
 			}
 		}
 	}
