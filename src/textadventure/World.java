@@ -1,16 +1,18 @@
 package textadventure;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import items.*;
 
 
-public class World {
+public class World implements Serializable {
 	
+	
+	private static final long serialVersionUID = 578861841990285434L;
 	protected static Player player;
 	static ArrayList<Location> undiscoveredLocs = new ArrayList<Location>();
 	static Item[] items;
-	@SuppressWarnings("unused")
 	World() {
 		player = new Player();
 
@@ -21,6 +23,7 @@ public class World {
 		Person philtard = new Person("Philtard", "");
 		Person catLady = new Person("Cat lady", "");
 		Person oldMan = new Person("Old Man", "");
+		Person torGuard = new Person("Tor Guard", "");
 		
 		// create item instances
 		Joint joint = new Joint();
@@ -56,7 +59,7 @@ public class World {
 		internetBackbone.discover();
 		
 		// tor
-		Location torGate = new Location("Tor Gate", "This is the Tor Gate. It is the entrance to the shadowy Tor Network. It is a network known for anonymity, illegal services, and childporn. In short: it is the ultimate internet blackmarket.", new Thing[]{});
+		Location torGate = new Location("Tor Gate", "This is the Tor Gate. It is the entrance to the shadowy Tor Network. It is a network known for anonymity, illegal services, and childporn. In short: it is the ultimate internet blackmarket.", new Thing[]{torGuard});
 		Location silkRoad = new Location("SilkRoad", "This is the Silkroad. It is a blackmarket on Tor where one can buy drugs, child porn, and hire hitmen. There are shady characters shuffling around everywhere, most are wearing trench coats.", new Thing[]{});
 		
 		// reich forums
@@ -76,8 +79,10 @@ public class World {
 		// join locations
 		internetBackbone.joinLoc(new Location[]{shitflix, reddit, torGate, blogger, reichForums});
 		blogger.joinLoc(new Location[]{sheSaid, sheSaidArchive});
+		blogger.discover();
 		reddit.joinLoc(new Location[]{memes, todayILearned, cats, nsaSubreddit});
 		torGate.joinLoc(new Location[]{silkRoad});
+		torGate.discover();
 		 // TODO join all locations that need to be joined. Should they all be joined at start then discovered as story progresses?
 	}
 	
@@ -97,4 +102,5 @@ public class World {
 				i.setGetable();
 			}
 	}
+
 }

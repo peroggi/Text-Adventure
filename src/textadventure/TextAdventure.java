@@ -1,4 +1,9 @@
 package textadventure;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,5 +50,33 @@ public class TextAdventure {
 			}
 		});
 	}
-
+	
+	public static String saveWorld() {
+		try (FileOutputStream fOut = new FileOutputStream("textAdventureSave.bin")) {
+			ObjectOutputStream outStream = new ObjectOutputStream(fOut);
+			outStream.writeObject(world);
+			outStream.close();
+			return "Game Saved.";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Could not write save file";	
+		}
+	}
+	
+	public static String loadWorld() {
+		try (FileInputStream fIn = new FileInputStream("textAdventureSave.bin")) {
+			ObjectInputStream inStream = new ObjectInputStream(fIn);
+			world = (World) inStream.readObject();
+			inStream.close();
+			return "Game Loaded.";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Could not read from save file";
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return "Couldn't find World in save file";
+			
+		}
+	}
+		
 }

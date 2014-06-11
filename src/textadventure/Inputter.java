@@ -40,6 +40,8 @@ public class Inputter {
 		Pattern talkPattern = Pattern.compile("^talk(\\s|$)");
 		Pattern argumentPattern = Pattern.compile("\\s\\w+($|\\s)");
 		Pattern twoArgumentPattern = Pattern.compile("\\s(\\w+|\\w+\\s\\w+)\\son\\s(\\w+|\\w+\\s\\w+)($|\\s)"); //makes UseOn work
+		Pattern savePattern = Pattern.compile("^save(\\s|$)");
+		Pattern loadPattern = Pattern.compile("^load(\\s|$)");
 		Matcher argumentMatcher = argumentPattern.matcher(input);
 		Matcher twoArgumentMatcher = twoArgumentPattern.matcher(input);
 
@@ -142,6 +144,18 @@ public class Inputter {
 			}
 		}
 		// END MOVE
+		
+		// SAVE
+		if (savePattern.matcher(input).find()) {
+			Gui.setOutputText(TextAdventure.saveWorld());
+		}
+		// END SAVE
+		
+		//LOAD
+		if (loadPattern.matcher(input).find()) {
+			Gui.setOutputText(TextAdventure.loadWorld());
+		}
+		//END LOAD
 		
 		//NONE OF THE ABOVE
 		Gui.setOutputText((String) TextAdventure.pick(TextAdventure.invalidVerb)); //prints out invalid verb
