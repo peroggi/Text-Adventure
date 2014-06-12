@@ -41,6 +41,12 @@ public class Player {
 		}
 	}
 	
+	public void giveItem(Item i) {
+		inventory.add(i);
+		SwingUtilities.invokeLater(updateInventory);
+		
+	}
+	
 	public void use(String toUse) {
 		if (isInInventory(toUse)) {
 			Item using = (Item) getFromInventory(toUse);
@@ -53,8 +59,17 @@ public class Player {
 	}
 	
 	public void useOn(String use, String useOn) {
-		// TODO make so this works both ways? flag on lighter and lighter on flag? have item check this. and useOnItem
-		if (isInInventory(use)) {
+		//TODO make work both ways if different order to args, as with items?
+		System.out.println(currentLoc.findInContents(useOn)); // //TODO returns null?? 
+		if (currentLoc.findInContents(useOn) instanceof Person && isInInventory(use)) {
+			Item useItem = (Item) getFromInventory(use);
+			Person useOnPerson = (Person) getCurrentLoc().findInContents(useOn);
+			System.out.println("Using " + getFromInventory(use).getName() + " on person " + currentLoc.findInContents(useOn));
+			useItem.useOn(useOnPerson);
+			return;
+		}
+		
+		if (isInInventory(use)) { // this works. use on for items
 			if (isInInventory(useOn)) {
 				Item useItem = (Item) getFromInventory(use);
 				Item useOnItem = (Item) getFromInventory(useOn);

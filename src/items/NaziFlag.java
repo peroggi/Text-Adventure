@@ -39,6 +39,7 @@ public class NaziFlag extends Item {
 			if (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("reich forums") || /*This one for testing*/ World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test")) {
 				if (World.getPlayer().isInInventory("feminist uniform")) {
 					Gui.setOutputText("You quickly light the flag and run off, enraged Nazis are hot on your tail. As soon as you get back into the internet backbone, you ditch your disguise. The Nazis run right past you and into blogger.");
+					// TODO move to internet backbone
 					World.getPlayer().removeConsumable("feminist uniform");
 					World.getPlayer().removeConsumable("nazi flag");
 					// sheSaidDeath(); // TODO she said death event

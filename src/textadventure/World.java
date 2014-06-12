@@ -96,11 +96,21 @@ public class World implements Serializable {
 		
 	}
 	
+	public static Thing findInContents(String s) { // returns the item named s from contents
+		for (Thing i: items) {
+			if (i.getName().equalsIgnoreCase(s)) {
+				return i;
+			} 
+		}
+		return null;
+	}
+	
 	public static void makeItemGetable(String itemName) {
-		for (Item i : World.getItems())
-			if (i.getName().equalsIgnoreCase("nazi flag")) {
+		for (Item i : World.getItems()) {
+			if (i.getName().equalsIgnoreCase(itemName)) {
 				i.setGetable();
 			}
+		}
 	}
 
 }

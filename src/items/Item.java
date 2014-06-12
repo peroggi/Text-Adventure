@@ -1,6 +1,7 @@
 package items;
 
 import textadventure.Gui;
+import textadventure.Person;
 import textadventure.Thing;
 
 public class Item extends Thing{
@@ -26,5 +27,9 @@ public class Item extends Thing{
 	
 	public void useOn(Item i) {
 		Gui.setOutputText(this.getName() + " and " + i.getName() + " don't do anything when used together.");
+	}
+	
+	public void useOn(Person p) {
+		Gui.setOutputText(p.getName() + " doesn't want that item.");
 	}
 }

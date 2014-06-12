@@ -148,14 +148,12 @@ public class Inputter {
 		// SAVE
 		if (savePattern.matcher(input).find()) {
 			Gui.setOutputText(TextAdventure.saveWorld());
-			return;
 		}
 		// END SAVE
 		
 		//LOAD
 		if (loadPattern.matcher(input).find()) {
 			Gui.setOutputText(TextAdventure.loadWorld());
-			return;
 		}
 		//END LOAD
 		
