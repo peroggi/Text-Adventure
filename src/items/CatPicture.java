@@ -21,6 +21,7 @@ public class CatPicture extends Item {
 		if (World.getPlayer().getCurrentLoc().isInContents("toast") && p.getName().equalsIgnoreCase("toast")) {
 			Gui.setOutputText("You give toast the cat picture, which he accepts. You see a twinge of emotion on his face, he seems happy.\nToast has given you a cat flair.");
 			World.getPlayer().giveItem((Item) World.findInContents("cat flair"));
+			World.getPlayer().removeConsumable("cat picture");
 		}
 		else {
 			super.useOn(p);

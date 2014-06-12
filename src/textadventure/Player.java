@@ -41,7 +41,7 @@ public class Player {
 		}
 	}
 	
-	public void giveItem(Item i) {
+	public void giveItem(Item i) { // for adding item to invetory that isn't in location. give items to player
 		inventory.add(i);
 		SwingUtilities.invokeLater(updateInventory);
 		
@@ -60,7 +60,7 @@ public class Player {
 	
 	public void useOn(String use, String useOn) {
 		//TODO make work both ways if different order to args, as with items?
-		System.out.println(currentLoc.findInContents(useOn)); // //TODO returns null?? 
+		System.out.println(currentLoc.findInContents(useOn)); 
 		if (currentLoc.findInContents(useOn) instanceof Person && isInInventory(use)) {
 			Item useItem = (Item) getFromInventory(use);
 			Person useOnPerson = (Person) getCurrentLoc().findInContents(useOn);
@@ -98,7 +98,7 @@ public class Player {
 		}
 	}
 	
-	// allows for removing an item from inventory as part of another item's use action, without user input
+	// allows for removing an item from inventory as part of another item's use action
 	public void removeConsumable(String toUse) {
 		if (isInInventory(toUse)) {
 			Item using = (Item) getFromInventory(toUse);
