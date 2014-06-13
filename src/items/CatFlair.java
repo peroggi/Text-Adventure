@@ -18,6 +18,9 @@ public class CatFlair extends Item {
 	
 	@Override
 	public void useOn(Person p) {
+		if (World.getPlayer().getCurrentLoc().isInContents("old man") && p.getName().equalsIgnoreCase("old man")) {
+			Gui.setOutputText("Old Man says: hrgh, the hell you doing with that? Posting something in the cat subreddit isn't going to do anything, get a better flair.");
+		}
 		if (World.getPlayer().getCurrentLoc().isInContents("cat lady") && p.getName().equalsIgnoreCase("cat lady")) {
 			Gui.setOutputText("Cat Lady says: eeeeeee omg! Thanks so much! Here you can have my flair for todayilearned, I'm so bored of that subreddit! Thaaanks :)\nThe Cat Lady has given you a todayilearned flair.");
 			World.getPlayer().giveItem((Item) World.findInContents("todayilearned flair"));

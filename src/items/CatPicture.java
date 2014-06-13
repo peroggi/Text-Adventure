@@ -23,6 +23,9 @@ public class CatPicture extends Item {
 			World.getPlayer().giveItem((Item) World.findInContents("cat flair"));
 			World.getPlayer().removeConsumable("cat picture");
 		}
+		if (World.getPlayer().getCurrentLoc().isInContents("cat lady") && p.getName().equalsIgnoreCase("cat lady")) {
+			Gui.setOutputText("Cat Lady says: AWWWWWW! So kyoot :3 you can keep it though, there are lots of cat pictures here");
+		}
 		else {
 			super.useOn(p);
 		}

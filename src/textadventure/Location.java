@@ -7,6 +7,7 @@ public class Location extends Thing{
 	protected List<Location> links = new ArrayList<Location>();
 	protected List<Thing> contents = new ArrayList<Thing>();
 	protected boolean discovered = false;
+	
 	public Location(String name, String desc, Thing[] contents){
 		this.setName(name);
 		this.setDesc(desc);
@@ -76,6 +77,7 @@ public class Location extends Thing{
 	public List<Location> getLinks(){ //will be called when player attempts to move to a location
 		return links;
 	}
+	
 	/*void testPrintLinks() {
 		System.out.print(this.getName() + " is linked to: ");
 		for (Location l : links) {

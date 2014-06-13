@@ -15,7 +15,7 @@ public class RedditPost extends Item {
 		
 		if (hasFlair && (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("TodayILearned") || World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test"))) {
 			System.out.println("reddit death");
-			//redditdeath(); // TODO redditdeath event
+			redditDeath();
 			return;
 		}
 		if (!hasFlair && (World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("TodayILearned") || World.getPlayer().getCurrentLoc().getName().equalsIgnoreCase("test"))) {
@@ -39,20 +39,12 @@ public class RedditPost extends Item {
 		}
 	}
 	
+	public void redditDeath() {
+		Gui.setOutputText("You post your well written article on the wall of the subreddit. A few people crowd around and observe the post, their eyes going wide as they read. Word spreads quickly and the self-important Redditors begin screaming as their self-image collapses around them. After a few moments, several of them begin to commit suicide.");
+        // TODO kill philtard
+    	// TODO kill avgredditor
+    	// TODO change description for reddit, memes, todayilearned, and cats.
+    	// TODO change old man dialogue
+    }
+
 }
-/*
-	
-    redditpostITEM.useon = function (user) {
-        if (user == todayilearnedflairITEM) {
-            writeOut("You stamp the post with your flair. People will now assume a trusted user composed this post.");
-            this.flaired = true;
-            return true;
-        }
-        if (user == catflairITEM) {
-            writeOut("Using that flair on this post wouldn't accomplish anything");
-            return false;
-        }
-        writeOut("Those two items don't go together");
-        return false;
-    };
-*/

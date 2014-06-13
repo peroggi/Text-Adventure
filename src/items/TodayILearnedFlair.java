@@ -1,6 +1,7 @@
 package items;
 
 import textadventure.Gui;
+import textadventure.Person;
 import textadventure.World;
 
 public class TodayILearnedFlair extends Item {
@@ -23,6 +24,16 @@ public class TodayILearnedFlair extends Item {
 			}
 		else {
 			Gui.setOutputText("Those two items don't go together");
+		}
+	}
+	
+	@Override
+	public void useOn(Person p) {
+		if (World.getPlayer().getCurrentLoc().isInContents("old man") && p.getName().equalsIgnoreCase("old man")) {
+			Gui.setOutputText("Old Man says: Hehe, yes that will do nicely. Now you just have to <em>write</em> a hilarious post for <em>Reddit</em>, stamp it with that, and post it on the subreddit. That ought to be hilarious enough, hrk.");
+		}
+		else {
+			super.useOn(p);
 		}
 	}
 }
