@@ -60,7 +60,6 @@ public class Player {
 	
 	public void useOn(String use, String useOn) {
 		//TODO make work both ways if different order to args, as with items?
-		System.out.println(currentLoc.findInContents(useOn)); 
 		if (currentLoc.findInContents(useOn) instanceof Person && isInInventory(use)) {
 			Item useItem = (Item) getFromInventory(use);
 			Person useOnPerson = (Person) getCurrentLoc().findInContents(useOn);

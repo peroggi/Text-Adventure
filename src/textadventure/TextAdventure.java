@@ -38,7 +38,7 @@ public class TextAdventure {
 	
 	static void initWorld() {
 		world = new World();
-		inputter = new Inputter(); // create inputter that has a player object
+		inputter = new Inputter();
 	}
 	
 	public static void main(String[] args) {
